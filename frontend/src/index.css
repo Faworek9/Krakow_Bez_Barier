@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   /* Zapewnienie wyraźnego focusu dla nawigacji klawiaturą (WCAG 2.2 AA) */
   :focus-visible {
     outline: 3px solid #0052A5 !important;
@@ -18,6 +22,33 @@
     outline: 4px solid #FFFF00 !important;
     outline-offset: 3px !important;
   }
+
+  /* Skalowanie rozmiaru czcionki dla osób słabowidzących (WCAG 1.4.4 Resize text) */
+  .text-scale-large {
+    font-size: 114%;
+  }
+
+  .text-scale-xlarge {
+    font-size: 128%;
+  }
+
+  /* Krój ułatwiający czytanie dla osób z dysleksją */
+  .dyslexic-mode {
+    font-family: 'Comic Sans MS', 'Trebuchet MS', 'Segoe UI', Tahoma, sans-serif !important;
+    letter-spacing: 0.05em !important;
+    word-spacing: 0.1em !important;
+    line-height: 1.7 !important;
+  }
+
+  /* Redukcja animacji dla osób wrażliwych na ruch błędnikowy */
+  .reduced-motion *,
+  .reduced-motion *::before,
+  .reduced-motion *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 .leaflet-container {
@@ -32,4 +63,11 @@
   border-radius: 0.75rem;
   padding: 4px;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtelny gradient miejski */
+.bg-krk-gradient {
+  background: radial-gradient(circle at top right, rgba(0, 82, 165, 0.12), transparent 45%),
+              radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.08), transparent 40%),
+              #f8fafc;
 }

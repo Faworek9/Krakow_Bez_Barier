@@ -137,3 +137,17 @@ export interface RouteResponse {
   barriers_detected: string[];
   advantages_detected: string[];
 }
+
+export type NavigationTab = 'home' | 'places' | 'routes' | 'settings';
+
+export interface AppSettings {
+  highContrast: boolean;
+  textSize: 'normal' | 'large' | 'xlarge';
+  dyslexicFont: boolean;
+  reducedMotion: boolean;
+  soundAssistance: boolean;
+  defaultTab: NavigationTab;
+  defaultViewMode: 'both' | 'list' | 'map';
+  mapTileLayer: 'standard' | 'contrast' | 'satellite';
+}
+

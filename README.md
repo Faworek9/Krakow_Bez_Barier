@@ -19,11 +19,13 @@ Aplikacja jest skierowana do:
    - **Brak danych != Dostępne**: luki informacyjne są wyraźnie oznaczane jako ostrzeżenia.
 3. **Prywatność i RODO (Privacy by Design)**:
    - Zero pytań o stan zdrowia czy niepełnosprawność. Użytkownik wybiera wyłącznie parametry fizyczne, których potrzebuje.
-4. **Dostępność cyfrowa (WCAG 2.2 AA)**:
-   - Pełna obsługa klawiaturą (widoczne focus rings), semantyczny HTML dla czytników ekranu, tryb wysokiego kontrastu, w 100% dostępna lista tekstowa jako alternatywa dla mapy.
-5. **Nawigacja i Planer Tras**:
+4. **Dostępność cyfrowa (WCAG 2.2 AA) & Centrum Ustawień**:
+   - Pełna obsługa klawiaturą (widoczne focus rings), semantyczny HTML dla czytników ekranu, tryb wysokiego kontrastu, skalowanie czcionki (A/A+/A++), krój dla osób z dysleksją, syntezator mowy (Web Speech API) oraz dedykowany panel Ustawień i Opcji.
+5. **Strona Główna i Pulpit Miejski**:
+   - Nowoczesny panel Hero z natychmiastową wyszukiwarką, szybkim wyborem profili podróży, wyróżnionymi obiektami i kluczowymi wskaźnikami transparentności.
+6. **Nawigacja i Planer Tras**:
    - Analiza etapów trasy krok po kroku (np. Dworzec Główny → Sukiennice) z podziałem na nawierzchnie (asfalt vs bruk).
-6. **Gotowość do chmury Google Cloud**:
+7. **Gotowość do chmury Google Cloud**:
    - Skonteneryzowane obrazy Docker zoptymalizowane pod **Google Cloud Run** i automatyczny deploy.
 
 ---

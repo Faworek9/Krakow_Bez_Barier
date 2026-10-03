@@ -5,10 +5,12 @@ import { Accessibility, Luggage, Baby, UserCheck, Sliders, CheckSquare, Square }
 interface Props {
   preferences: UserPreferences;
   onChange: (newPrefs: UserPreferences) => void;
+  onOpenSettings?: () => void;
 }
 
-export const AccessibilityFilters: React.FC<Props> = ({ preferences, onChange }) => {
+export const AccessibilityFilters: React.FC<Props> = ({ preferences, onChange, onOpenSettings }) => {
   const [showAdvanced, setShowAdvanced] = React.useState(false);
+
 
   const applyPreset = (presetKey: string) => {
     switch (presetKey) {
@@ -83,15 +85,26 @@ export const AccessibilityFilters: React.FC<Props> = ({ preferences, onChange })
             Prywatność przede wszystkim: nie pytamy o diagnozy, lecz o konkretne wymiary i nawierzchnie.
           </p>
         </div>
-        <button
-          type="button"
-          onClick={() => setShowAdvanced(!showAdvanced)}
-          className="inline-flex items-center gap-1.5 text-xs font-medium text-blue-700 hover:text-blue-900 bg-blue-50 px-2.5 py-1.5 rounded-lg border border-blue-200 transition-colors"
-          aria-expanded={showAdvanced}
-        >
-          <Sliders className="w-3.5 h-3.5" aria-hidden="true" />
-          {showAdvanced ? 'Zwiń szczegóły' : 'Dostosuj wymiary'}
-        </button>
+        <div className="flex items-center gap-2">
+          {onOpenSettings && (
+            <button
+              type="button"
+              onClick={onOpenSettings}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg border border-slate-200 transition-colors"
+            >
+              <span>⚙️ Wszystkie opcje</span>
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={() => setShowAdvanced(!showAdvanced)}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg border border-blue-200 transition-colors"
+            aria-expanded={showAdvanced}
+          >
+            <Sliders className="w-3.5 h-3.5" aria-hidden="true" />
+            {showAdvanced ? 'Zwiń szczegóły' : 'Dostosuj wymiary'}
+          </button>
+        </div>
       </div>
 
       {/* Szybkie presety */}

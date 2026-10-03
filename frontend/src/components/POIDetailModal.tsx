@@ -56,25 +56,25 @@ export const POIDetailModal: React.FC<Props> = ({ poi, onClose, onOpenReport }) 
         tabIndex={-1}
         className="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-slate-200 overflow-hidden my-8 focus:outline-hidden"
       >
-        {/* Pasek nagłówkowy */}
-        <div className="bg-slate-900 text-white p-6 relative">
+        {/* Pasek nagłówkowy (JASNY MOTYW) */}
+        <div className="bg-gradient-to-r from-blue-50/95 via-sky-50 to-indigo-50/80 border-b border-blue-100 p-6 relative">
           <button
             type="button"
             onClick={onClose}
             aria-label="Zamknij okno szczegółów"
-            className="absolute top-5 right-5 text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 p-2 rounded-full transition-colors"
+            className="absolute top-5 right-5 text-slate-500 hover:text-slate-900 bg-white hover:bg-slate-100 border border-slate-200 p-2 rounded-full transition-colors shadow-2xs"
           >
             <X className="w-5 h-5" aria-hidden="true" />
           </button>
 
-          <div className="inline-block px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold uppercase tracking-wider mb-2">
+          <div className="inline-block px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200/70 text-xs font-bold uppercase tracking-wider mb-2">
             {poi.category}
           </div>
-          <h2 id="modal-title" className="text-xl font-black text-white">
+          <h2 id="modal-title" className="text-xl font-black text-slate-900">
             {poi.name}
           </h2>
-          <div className="flex items-center gap-1.5 text-xs text-slate-300 mt-1">
-            <MapPin className="w-4 h-4 text-blue-400 shrink-0" aria-hidden="true" />
+          <div className="flex items-center gap-1.5 text-xs text-slate-600 mt-1">
+            <MapPin className="w-4 h-4 text-blue-600 shrink-0" aria-hidden="true" />
             <span>{poi.address} ({poi.district})</span>
           </div>
         </div>
@@ -214,7 +214,7 @@ export const POIDetailModal: React.FC<Props> = ({ poi, onClose, onOpenReport }) 
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-bold transition-colors"
+            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 rounded-xl text-xs font-bold transition-colors"
           >
             Zamknij
           </button>
