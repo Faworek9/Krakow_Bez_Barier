@@ -15,6 +15,7 @@ import { AuthModal } from './components/AuthModal';
 import { BusinessPlaceModal } from './components/BusinessPlaceModal';
 import { UserReportsModal } from './components/UserReportsModal';
 import { Search, Map, List, CheckCircle, ShieldAlert, Sparkles, Filter, X } from 'lucide-react';
+import { API_BASE } from './config/api';
 
 const DEFAULT_PREFERENCES: UserPreferences = {
   preset_name: 'wheelchair',
@@ -159,7 +160,7 @@ export const App: React.FC = () => {
     const fetchAndEvaluate = async () => {
       setLoading(true);
       try {
-        const res = await fetch('http://127.0.0.1:8000/api/poi/evaluate', {
+        const res = await fetch(`${API_BASE}/poi/evaluate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(preferences)

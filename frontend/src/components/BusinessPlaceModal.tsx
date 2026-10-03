@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { BusinessPlaceInput, POI } from '../types';
 import { X, Building2, CheckCircle2, AlertTriangle, ShieldCheck, MapPin, Layers } from 'lucide-react';
+import { API_BASE } from '../config/api';
 
 interface Props {
   isOpen: boolean;
@@ -69,7 +70,7 @@ export const BusinessPlaceModal: React.FC<Props> = ({
     };
 
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/poi/business', {
+      const res = await fetch(`${API_BASE}/poi/business`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

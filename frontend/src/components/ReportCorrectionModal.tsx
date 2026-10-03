@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { POI } from '../types';
 import { X, Send, CheckCircle2 } from 'lucide-react';
+import { API_BASE } from '../config/api';
 
 interface Props {
   poi: POI | null;
@@ -52,7 +53,7 @@ export const ReportCorrectionModal: React.FC<Props> = ({
         verified_on_site: true
       };
 
-      const res = await fetch('http://127.0.0.1:8000/api/feedback', {
+      const res = await fetch(`${API_BASE}/feedback`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

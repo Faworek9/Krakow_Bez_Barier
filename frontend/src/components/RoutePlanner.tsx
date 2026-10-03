@@ -16,6 +16,7 @@ import {
   Compass,
   Footprints
 } from 'lucide-react';
+import { API_BASE } from '../config/api';
 
 interface Props {
   preferences: UserPreferences;
@@ -52,7 +53,7 @@ export const RoutePlanner: React.FC<Props> = ({ preferences, availablePois }) =>
       setPlaces(availablePois);
     } else {
       // Pobranie z API w przypadku braku
-      fetch('http://127.0.0.1:8000/api/poi')
+      fetch(`${API_BASE}/poi`)
         .then(res => res.json())
         .then(data => {
           if (Array.isArray(data) && data.length > 0) {
@@ -84,7 +85,7 @@ export const RoutePlanner: React.FC<Props> = ({ preferences, availablePois }) =>
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/routes/custom', {
+      const res = await fetch(`${API_BASE}/routes/custom`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -113,7 +114,7 @@ export const RoutePlanner: React.FC<Props> = ({ preferences, availablePois }) =>
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/routes/evaluate/${rId}`, {
+      const res = await fetch(`${API_BASE}/routes/evaluate/${rId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(preferences)

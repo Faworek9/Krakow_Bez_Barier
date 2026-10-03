@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { UserReportItem } from '../types';
 import { X, MessageSquare, CheckCircle2, Clock, AlertCircle, MapPin, PlusCircle } from 'lucide-react';
+import { API_BASE } from '../config/api';
 
 interface Props {
   isOpen: boolean;
@@ -20,7 +21,7 @@ export const UserReportsModal: React.FC<Props> = ({ isOpen, onClose, onOpenNewRe
     const fetchMyReports = async () => {
       setLoading(true);
       try {
-        const res = await fetch('http://127.0.0.1:8000/api/feedback/my-reports', {
+        const res = await fetch(`${API_BASE}/feedback/my-reports`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.ok) {
