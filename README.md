@@ -96,8 +96,6 @@ cd frontend
 ```
 
 
-```
-
 ---
 
 ## 📁 Dokumentacja Konkursowa i Koncepcja Projektu
