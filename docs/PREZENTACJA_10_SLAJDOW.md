@@ -5,7 +5,7 @@
 
 ## SLAJD 1: Tytuł i Misja Projektu
 - **Tytuł**: Kraków Bez Barier (AccessKraków)
-- **Podtytuł**: Wiarygodna, spersonalizowana ocena dostępności przestrzeni miejskiej i tras dla każdego
+- **Podtytuł**: Wiarygodna, spersonalizowana i dwujęzyczna ocena dostępności przestrzeni miejskiej i tras dla każdego
 - **Misja**: Likwidujemy binarne etykiety „dostępne / niedostępne”. Dajemy każdemu turyście i mieszkańcowi precyzyjne parametry architektoniczne, by mógł samodzielnie ocenić przydatność trasy do swoich unikalnych potrzeb.
 - **Logotyp / Hasło**: *Kraków otwarty, przejrzysty, bez barier.*
 
@@ -14,9 +14,10 @@
 ## SLAJD 2: Zdefiniowany Problem
 - **Pułapka binarnego oznaczenia**: Miejsce oznaczone jako „dostępne” może mieć próg 5 cm lub stromy podjazd 12% – dla wózka elektrycznego to bariera nie do przejścia.
 - **Różnorodność potrzeb w Krakowie**:
-  - Osoba na wózku potrzebuje szerokich drzwi (&gt;85 cm) i windy z kabiną min. 110x140 cm.
+  - Osoba na wózku potrzebuje szerokich drzwi (>85 cm) i windy z kabiną min. 110x140 cm.
   - Turysta z ciężką walizką potrzebuje gładkiej nawierzchni i unika zabytkowych „kocich łbów”.
   - Rodzic ze spacerówką szuka miejsc odpoczynku i bezstopniowych zjazdów.
+  - Turysta zagraniczny zmaga się z barierą językową w polskich rejestrach miejskich.
 - **Problem braku wiarygodności**: Wiele portali prezentuje nieaktualne dane, a brak informacji traktuje błędnie jako „brak barier”.
 
 ---
@@ -25,13 +26,14 @@
 - **Parametryczna ocena**: Zamiast arbitralnego werdyktu, analizujemy: liczbę stopni, wysokość progu w cm, szerokość przejścia, kąt rampy, typ nawierzchni, toaletę z uchwytami i miejsca odpoczynku.
 - **Dynamiczny silnik dopasowania**: Użytkownik wybiera szybki profil (Wózek / Walizka / Spacerówka / Senior) lub ustawia własne limity fizyczne.
 - **Podwójny widok**: Interaktywna mapa + w 100% dostępna lista tekstowa z wykazem konkretnych barier (spełnienie standardu WCAG 2.2 AA).
+- **Pełna Dwujęzyczność (PL / EN)**: Aplikacja natywnie dostępna w języku polskim i angielskim wraz z dwujęzycznym lektorem mowy.
 
 ---
 
 ## SLAJD 4: Prywatność i Etyka Danych (Privacy by Design)
 - **Zero pytań o stan zdrowia i orzeczenia**: Użytkownik nie podaje informacji o swojej niepełnosprawności (pełna zgodność z RODO i etyką).
 - **Koncentracja na parametrach otoczenia**: Pytamy wyłącznie o to, jaki próg jesteś w stanie pokonać i jakiej szerokości drzwi potrzebujesz.
-- **Bezpieczeństwo**: Szyfrowane połączenia HTTPS/TLS, anonimowość profili wyszukiwania.
+- **Bezpieczeństwo**: Szyfrowane połączenia HTTPS/TLS, anonimowość profili wyszukiwania (dane przechowywane lokalnie w pamięci przeglądarki).
 
 ---
 
@@ -48,9 +50,9 @@
 ---
 
 ## SLAJD 6: Architektura Techniczna i Google Cloud
-- **Frontend**: React 18 + TypeScript + Tailwind CSS + Leaflet (lekkość, szybkość, pełna responsywność).
-- **Backend**: Python 3.11 + FastAPI (wysoka asynchroniczna wydajność, Pydantic, REST API).
-- **Oddzielenie warstw**: Niezależne moduły ingestii danych (OSM Overpass API, Otwarte Dane Krakowa, Repozytorium Zgłoszeń).
+- **Frontend**: React 18 + TypeScript + Tailwind CSS + Leaflet (lekkość, szybkość, pełna responsywność, PWA).
+- **Moduł i18n & Speech API**: Typowany system tłumaczeń (PL/EN) i syntezator mowy dopasowujący syntezę głosu (`pl-PL` / `en-US`).
+- **Backend**: Python 3.11 + FastAPI (wysoka asynchroniczna wydajność, Pydantic, REST API, system JWT dla ról).
 - **Chmura Google Cloud**:
   - **Google Cloud Run**: Bezserwerowe kontenery Docker (automatyczne skalowanie do zera = minimalne koszty wdrożenia).
   - **Google Artifact Registry**: Bezpieczny rejestr obrazów kontenerowych.
@@ -60,26 +62,29 @@
 
 ## SLAJD 7: Dostępność Cyfrowa (WCAG 2.2 AA w Praktyce)
 - **Nawigacja z klawiatury**: 100% funkcji aplikacji dostępnych wyłącznie klawiszami Tab / Enter / Spacja (widoczne focus rings).
+- **Centrum Ustawień Dostępności (⚙️)**:
+  - Zintegrowany panel konfiguracji: tryb wysokiego kontrastu (>7:1), skalowanie czcionki (100% / 115% / 130%), krój OpenDyslexic i redukcja animacji.
 - **Czytniki ekranu**: Semantyczny HTML, atrybuty ARIA, komunikaty o zmianie liczby wyników (`aria-live="polite"`).
 - **Tekstowa alternatywa dla mapy**: Pełna lista kafelkowa i nawigacja krok po kroku jako równorzędna alternatywa dla mapy graficznej.
-- **Wysoki kontrast**: Dedykowany tryb wysokiego kontrastu (> 4.5:1 dla tekstu, > 3:1 dla elementów interaktywnych).
 
 ---
 
-## SLAJD 8: Model Biznesowy i Komercjalizacja (Wycena 20%)
-- **B2B SaaS: Certyfikat i Widget „Obiekt Przyjazny Mobilności”**:
-  - Hotele, restauracje, muzea i centra konferencyjne w Krakowie wykupują roczną subskrypcję na oficjalny widżet z audytem dostępności na swoją stronę.
-  - Wzrost konwersji rezerwacji od gości o ograniczonej mobilności i rodzin z dziećmi.
+## SLAJD 8: Model Biznesowy i Zaangażowanie Społeczności
+- **Ekosystem Mieszkańców i Biznesu**:
+  - **Konto Mieszkańca**: Grywalizacja zgłoszeń (+10 pkt reputacji), śledzenie statusu weryfikacji w panelu „Moje zgłoszenia”.
+  - **Konto Biznesowe („+ Dodaj lokal”)**: Właściciele kawiarni, muzeów i hoteli bezpośrednio wprowadzają audytowane pomiary.
+- **B2B SaaS: Certyfikat i Widżet „AccessBadge”**:
+  - Hotele i restauracje wykupują roczną subskrypcję na oficjalny widżet z audytem dostępności na swoją stronę.
 - **B2B API dla platform rezerwacyjnych**:
-  - Płatny dostęp do API z mikrodanymi dostępności dla portali turystycznych (Booking.com, TripAdvisor, portale kongresowe Kraków Network).
+  - Płatny dostęp do API z mikrodanymi dostępności dla portali turystycznych (Booking.com, Airbnb, portale kongresowe).
 - **B2G (Współpraca z Miastem)**:
-  - Generowanie raportów o „białych plamach dostępności” w przestrzeni miejskiej dla ZDMK i UMK.
+  - Generowanie map „białych plam dostępności” dla ZDMK i UMK.
 
 ---
 
 ## SLAJD 9: Skalowalność i Plan Przejścia do Stałej Usługi
 - **Łatwość wdrożenia w innych miastach**:
-  - Architektura oparta na standardzie OpenStreetMap i GeoJSON pozwala uruchomić aplikację we Wrocławiu, Gdańsku czy Warszawie w kilka dni roboczych.
+  - Architektura oparta na standardzie OpenStreetMap, GeoJSON oraz moduł dwujęzyczności pozwala uruchomić aplikację w dowolnym mieście w Polsce i Europie w 48 godzin.
 - **Podmiot odpowiedzialny i utrzymanie**:
   - Spółka celowa / Partnerstwo NGO i Tech Startup.
   - Koszty stałe infrastruktury w Google Cloud Run: **poniżej 80-120 zł / mies.** w początkowej fazie dzięki serverless.
@@ -89,6 +94,6 @@
 
 ## SLAJD 10: Podsumowanie i Demonstracja
 - **Działający prototyp**: Przetestowany na kluczowych punktach Krakowa (Dworzec Główny, Rynek Główny, Wawel, Kazimierz).
-- **Bezpieczny, etyczny, transparentny**: Prawdziwe informacje, wyraźne ostrzeżenia o brakach danych, pełne wsparcie WCAG.
+- **Bezpieczny, etyczny, transparentny**: Prawdziwe informacje, wyraźne ostrzeżenia o brakach danych, pełne wsparcie WCAG 2.2 AA oraz obsługa języka angielskiego.
 - **Gotowy do wdrożenia**: Repozytorium Docker + skrypty wdrożeniowe na Google Cloud Run.
 - **Dziękujemy za uwagę! Zapraszamy do zadawania pytań.**

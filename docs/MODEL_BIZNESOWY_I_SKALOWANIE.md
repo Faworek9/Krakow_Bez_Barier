@@ -14,12 +14,14 @@
    - **Warunki licencji**: Public domain / ponowne wykorzystanie informacji sektora publicznego bez opłat.
 3. **Miejski System Informacji Przestrzennej (MSIP - `msip.krakow.pl`)**:
    - Warstwy WFS/WMS z danymi o sieci dróg i chodników, parkach i toaletach publicznych.
-4. **Zgłoszenia Użytkowników i Społeczności (Crowdsourcing)**:
-   - Formularz w aplikacji umożliwiający korektę parametrów (np. zmiana liczby stopni po remoncie, zgłoszenie awarii windy).
+4. **Zgłoszenia Mieszkańców i Społeczności (Crowdsourcing)**:
+   - Panel „Moje zgłoszenia” z grywalizacją (+10 pkt reputacji) do zgłaszania usterek (np. awaria windy, remont chodnika).
+5. **Autoryzacja Właścicieli Obiektów (Self-Declaration B2B)**:
+   - Wdrożony w prototypie moduł „+ Dodaj lokal” umożliwiający bezpośrednie wprowadzanie wymiarów wejść, toalet i ramp przez zarządców.
 
 ### 1.2. Algorytm Oceny Wiarygodności i Aktualności
 Dane są klasyfikowane na 4 poziomach:
-- **`VERIFIED_OFFICIAL` (Wiarygodność 90-100%)**: Pomiary z oficjalnych deklaracji dostępności (zgodnie z ustawą z 4 kwietnia 2019 r. o dostępności cyfrowej stron i aplikacji podmiotów publicznych) oraz bezpośrednie audyty zarządców obiektów. Ważność: 12 miesięcy od audytu.
+- **`VERIFIED_OFFICIAL` (Wiarygodność 90-100%)**: Pomiary z oficjalnych deklaracji dostępności oraz bezpośrednie audyty zarządców obiektów. Ważność: 12 miesięcy od audytu.
 - **`VERIFIED_COMMUNITY` (Wiarygodność 70-89%)**: Potwierdzenie parametrów przez min. 3 niezależnych użytkowników lub certyfikowaną organizację pozarządową.
 - **`OPEN_DATA_IMPORT` (Wiarygodność 50-69%)**: Surowe dane zaimportowane z OSM lub rejestrów publicznych.
 - **`UNVERIFIED_REPORT` (Wiarygodność <50%)**: Pojedyncze, świeże zgłoszenie użytkownika (oznaczone żółtym trójkątem ostrzegawczym do czasu moderacji).
@@ -36,9 +38,11 @@ Celem projektu jest stworzenie samofinansującej się usługi o wysokim potencja
 
 ### 2.1. Segment B2B: Certyfikacja i Widget „AccessBadge” (Model SaaS)
 - **Klient**: Hotele, restauracje, muzea prywatne, centra kongresowe i konferencyjne (np. ICE Kraków, EXPO Kraków).
-- **Produkt**:
+- **Zaimplementowany fundament w aplikacji**:
+  - Dedykowany **Profil Biznesowy** oraz modal **`+ Dodaj lokal`**, w którym przedsiębiorcy mogą samodzielnie zgłaszać obiekt, wprowadzając precyzyjne parametry techniczne (szerokość drzwi, stopnie, obecność toalety dostosowanej, windę).
+- **Produkt docelowy**:
   - Dedykowany, responsywny widżet JavaScript do wklejenia na stronę internetową obiektu.
-  - Oficjalny audyt mikropomiarowy (zdjęcia wejścia, wymiary windy, toalety).
+  - Certyfikowany audyt mikropomiarowy (weryfikacja deklaracji przez certyfikatora).
   - Widżet prezentuje gościom przed dokonaniem rezerwacji precyzyjne parametry pokoju i budynku.
 - **Cena**: Model subskrypcyjny:
   - Plan Standard (Kawiarnie / Restauracje): 49 zł / miesiąc.
@@ -46,7 +50,7 @@ Celem projektu jest stworzenie samofinansującej się usługi o wysokim potencja
 
 ### 2.2. Segment B2B API: Integracje z Platformami Rezerwacyjnymi i Mapami
 - **Klient**: Platformy takie jak Booking.com, Airbnb, e-podróżnik, aplikacje konferencyjne.
-- **Produkt**: REST API dostarczające ustrukturyzowane dane JSON o dostępności obiektów i tras dojścia.
+- **Produkt**: REST API dostarczające ustrukturyzowane dane JSON o dostępności obiektów i tras dojścia w standardzie dwujęzycznym (PL/EN).
 - **Model**: Płatność za pakiet zapytań (pay-per-request / tiered pricing).
 
 ### 2.3. Segment B2G (Partnerstwo Publiczno-Prywatne)
@@ -78,12 +82,13 @@ Dzięki architekturze serverless opartej na **Google Cloud Run**, koszty rosną 
 1. **Brak przetwarzania danych o stanie zdrowia (art. 9 RODO)**:
    - Aplikacja **nie rejestruje** diagnoz medycznych, rodzaju niepełnosprawności ani orzeczeń.
    - Użytkownik operuje wyłącznie na parametrach technicznych otoczenia (szerokość przejścia, maksymalna wysokość krawężnika, unikanie kocich łbów).
-2. **Anonimowość wyszukiwania**:
-   - Wyszukiwanie miejsc i tras nie wymaga rejestracji ani logowania.
-   - Preferencje ruchowe są przechowywane lokalnie w pamięci przeglądarki (`localStorage`) użytkownika.
+2. **Anonimowość wyszukiwania i bezpieczeństwo kont**:
+   - Podstawowe przeglądanie miejsc i planowanie tras nie wymaga rejestracji.
+   - Konta użytkowników operują na tokenach JWT z hashowaniem haseł (bcrypt).
+   - Preferencje ruchowe i ustawienia WCAG są przechowywane lokalnie w pamięci przeglądarki (`localStorage`).
 3. **Bezpieczeństwo połączeń**:
    - Całość komunikacji zabezpieczona szyfrowaniem TLS 1.3 (HTTPS).
-   - Ochrona formularza zgłoszeń przed spamem za pomocą mechanizmów rate-limitingu FastAPI i reCAPTCHA.
+   - Ochrona formularza zgłoszeń przed spamem za pomocą mechanizmów rate-limitingu FastAPI.
 
 ---
 
@@ -91,8 +96,9 @@ Dzięki architekturze serverless opartej na **Google Cloud Run**, koszty rosną 
 
 Architektura rozwiązania została zaprojektowana w sposób modularny i w 100% agnostyczny geograficznie:
 1. **Uniwersalny model danych**: Model danych oparty o standard OpenStreetMap i GeoJSON funkcjonuje identycznie w każdym punkcie globu.
-2. **Procedura dodania nowego miasta (np. Wrocław, Gdańsk, Warszawa)**:
+2. **Natywna dwujęzyczność (i18n)**: Kompletne wsparcie języka polskiego i angielskiego sprawia, że platforma jest natychmiast gotowa do ekspansji zagranicznej (np. Praga, Wiedeń, Berlin).
+3. **Procedura dodania nowego miasta (np. Wrocław, Gdańsk, Warszawa)**:
    - **Krok 1**: Zdefiniowanie współrzędnych obszaru (`Bounding Box`) nowego miasta.
    - **Krok 2**: Uruchomienie skryptu ingestii z OSM Overpass API dla zadanego obszaru.
-   - **Krok 3**: Podpięcie konektora lokalnego portalu otwartych danych miejskich (np. `api.um.warszawa.pl`).
+   - **Krok 3**: Podpięcie konektora lokalnego portalu otwartych danych miejskich.
    - Czas uruchomienia platformy dla kolejnego dużego miasta: **2-3 dni robocze**.
