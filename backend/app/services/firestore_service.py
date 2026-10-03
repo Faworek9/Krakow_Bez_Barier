@@ -37,7 +37,11 @@ class FirestoreService:
                 logger.info(f"Ustawiono poświadczenia GCP z pliku: {CREDENTIALS_PATH}")
 
             from google.cloud import firestore
-            self._db = firestore.Client()
+            project = os.getenv("GOOGLE_CLOUD_PROJECT") or os.getenv("GCP_PROJECT")
+            if project:
+                self._db = firestore.Client(project=project)
+            else:
+                self._db = firestore.Client()
             self._is_connected = True
             logger.info("Pomyślnie połączono z Google Cloud Firestore!")
         except Exception as e:

@@ -1,0 +1,12 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+service_account.json
+*service_account*.json
+.git/
+.gitignore
+.env*
+tests/
