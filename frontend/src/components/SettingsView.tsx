@@ -239,7 +239,15 @@ export const SettingsView: React.FC<Props> = ({
                 type="button"
                 role="switch"
                 aria-checked={settings.highContrast}
-                onClick={() => onUpdateSettings({ ...settings, highContrast: !settings.highContrast })}
+                onClick={() => {
+                  const nextVal = !settings.highContrast;
+                  onUpdateSettings({ ...settings, highContrast: nextVal });
+                  onShowToast?.(
+                    nextVal
+                      ? (language === 'en' ? 'High Contrast Mode enabled (>7:1 yellow-black)' : 'Włączono tryb wysokiego kontrastu (>7:1 żółto-czarny)')
+                      : (language === 'en' ? 'High Contrast Mode disabled' : 'Wyłączono tryb wysokiego kontrastu')
+                  );
+                }}
                 className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden ${
                   settings.highContrast ? 'bg-blue-700' : 'bg-slate-300'
                 }`}

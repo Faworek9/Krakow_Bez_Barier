@@ -21,16 +21,216 @@
     box-shadow: none !important;
   }
 
-  /* Tryb wysokiego kontrastu */
+  /* ==========================================================================
+     TRYB WYSOKIEGO KONTRASTU (WCAG AAA: Kontrast >7:1, akcenty żółto-czarne)
+     Zgodny z polskim standardem stron administracji publicznej (Gov.pl, BIP, EAA)
+     ========================================================================== */
   html.high-contrast,
-  .high-contrast {
-    filter: contrast(135%);
+  html.high-contrast body,
+  html.high-contrast #root,
+  html.high-contrast .high-contrast {
+    background-color: #000000 !important;
+    color: #ffffff !important;
   }
 
-  html.high-contrast :focus-visible,
-  .high-contrast :focus-visible {
-    outline: 4px solid #FFFF00 !important;
+  /* Karty, sekcje, nagłówek, stopka i kontenery */
+  html.high-contrast header,
+  html.high-contrast footer,
+  html.high-contrast section,
+  html.high-contrast main,
+  html.high-contrast div.bg-white,
+  html.high-contrast div.bg-slate-50,
+  html.high-contrast div.bg-slate-100,
+  html.high-contrast div.bg-blue-50,
+  html.high-contrast div.bg-emerald-50,
+  html.high-contrast div.bg-amber-50,
+  html.high-contrast div.bg-rose-50,
+  html.high-contrast div.bg-purple-50,
+  html.high-contrast [role="dialog"] > div {
+    background: #000000 !important;
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffff00 !important;
+  }
+
+  /* Wyraziste żółte obramowania dla krawędzi (kontrast >7:1) */
+  html.high-contrast .border,
+  html.high-contrast .border-t,
+  html.high-contrast .border-b,
+  html.high-contrast .border-l,
+  html.high-contrast .border-r,
+  html.high-contrast .border-y,
+  html.high-contrast .border-x,
+  html.high-contrast [class*="border-slate-"],
+  html.high-contrast [class*="border-blue-"],
+  html.high-contrast [class*="border-emerald-"],
+  html.high-contrast [class*="border-amber-"],
+  html.high-contrast [class*="border-rose-"] {
+    border-color: #ffff00 !important;
+  }
+
+  /* Nagłówki i teksty o podwyższonym kontraście */
+  html.high-contrast h1,
+  html.high-contrast h2,
+  html.high-contrast h3,
+  html.high-contrast h4,
+  html.high-contrast h5,
+  html.high-contrast h6,
+  html.high-contrast strong,
+  html.high-contrast b,
+  html.high-contrast [class*="text-slate-900"],
+  html.high-contrast [class*="text-slate-800"] {
+    color: #ffffff !important;
+  }
+
+  html.high-contrast p,
+  html.high-contrast span,
+  html.high-contrast [class*="text-slate-700"],
+  html.high-contrast [class*="text-slate-600"],
+  html.high-contrast [class*="text-slate-500"],
+  html.high-contrast [class*="text-slate-400"] {
+    color: #f8fafc !important;
+  }
+
+  /* Żółte akcenty kluczowe (linki, etykiety, wskaźniki dopasowania) */
+  html.high-contrast a,
+  html.high-contrast [class*="text-blue-"],
+  html.high-contrast [class*="text-emerald-"],
+  html.high-contrast [class*="text-amber-"] {
+    color: #ffff00 !important;
+  }
+
+  /* Główne przyciski akcji (Primary) - Żółte tło, czarny tekst */
+  html.high-contrast button.bg-blue-700,
+  html.high-contrast button.bg-blue-800,
+  html.high-contrast button.bg-blue-600,
+  html.high-contrast button.bg-slate-900,
+  html.high-contrast button.bg-emerald-600,
+  html.high-contrast button.bg-amber-600,
+  html.high-contrast .bg-blue-700,
+  html.high-contrast .bg-blue-800 {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+    font-weight: 800 !important;
+    border: 2px solid #ffff00 !important;
+  }
+
+  html.high-contrast button.bg-blue-700 *,
+  html.high-contrast button.bg-blue-800 *,
+  html.high-contrast button.bg-blue-600 *,
+  html.high-contrast button.bg-slate-900 *,
+  html.high-contrast .bg-blue-700 * {
+    color: #000000 !important;
+    stroke: #000000 !important;
+  }
+
+  /* Przyciski drugorzędne i zakładki - Czarne tło, żółta ramka, żółty tekst */
+  html.high-contrast button,
+  html.high-contrast [role="tab"] {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+  }
+
+  /* Aktywne zakładki i przyciski wyboru */
+  html.high-contrast [role="tab"][aria-selected="true"],
+  html.high-contrast button[aria-selected="true"],
+  html.high-contrast button.ring-2,
+  html.high-contrast .border-blue-600 {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+    font-weight: 800 !important;
+    border-color: #ffff00 !important;
+  }
+
+  html.high-contrast [role="tab"][aria-selected="true"] *,
+  html.high-contrast button[aria-selected="true"] * {
+    color: #000000 !important;
+    stroke: #000000 !important;
+  }
+
+  /* Pola formularzy */
+  html.high-contrast input,
+  html.high-contrast select,
+  html.high-contrast textarea {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+  }
+
+  html.high-contrast input::placeholder {
+    color: #94a3b8 !important;
+  }
+
+  html.high-contrast input[type="range"] {
+    accent-color: #ffff00 !important;
+  }
+
+  /* Plakietki i etykiety (Badges) */
+  html.high-contrast span.rounded-full,
+  html.high-contrast span.rounded-md,
+  html.high-contrast [class*="bg-emerald-100"],
+  html.high-contrast [class*="bg-amber-100"],
+  html.high-contrast [class*="bg-rose-100"],
+  html.high-contrast [class*="bg-blue-100"],
+  html.high-contrast [class*="bg-slate-100"] {
+    background-color: #000000 !important;
+    border: 1.5px solid #ffff00 !important;
+    color: #ffff00 !important;
+  }
+
+  html.high-contrast [class*="bg-emerald-100"] *,
+  html.high-contrast [class*="bg-amber-100"] *,
+  html.high-contrast [class*="bg-rose-100"] *,
+  html.high-contrast [class*="bg-blue-100"] * {
+    color: #ffff00 !important;
+  }
+
+  /* Okna modalne */
+  html.high-contrast [role="dialog"] {
+    background-color: rgba(0, 0, 0, 0.85) !important;
+  }
+
+  html.high-contrast [role="dialog"] > div {
+    border: 3px solid #ffff00 !important;
+    box-shadow: 0 0 25px rgba(255, 255, 0, 0.3) !important;
+  }
+
+  /* Przełącznik Switch */
+  html.high-contrast [role="switch"][aria-checked="true"] {
+    background-color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+  }
+
+  html.high-contrast [role="switch"][aria-checked="true"] > span {
+    background-color: #000000 !important;
+  }
+
+  html.high-contrast [role="switch"][aria-checked="false"] {
+    background-color: #1e293b !important;
+    border: 2px solid #ffff00 !important;
+  }
+
+  html.high-contrast [role="switch"][aria-checked="false"] > span {
+    background-color: #ffff00 !important;
+  }
+
+  /* Wskaźnik fokusu WCAG AAA */
+  html.high-contrast :focus-visible {
+    outline: 4px solid #ffff00 !important;
     outline-offset: 3px !important;
+  }
+
+  /* Ikony adaptują kolor tekstu */
+  html.high-contrast svg {
+    stroke: currentColor !important;
+  }
+
+  /* Nienaruszanie mapy Leaflet */
+  html.high-contrast .leaflet-container,
+  html.high-contrast .leaflet-container * {
+    filter: none !important;
+    background: initial;
   }
 
   /* Skalowanie rozmiaru czcionki dla osób słabowidzących (WCAG 1.4.4 Resize text) */
