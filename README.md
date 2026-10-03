@@ -26,20 +26,27 @@ Aplikacja jest skierowana do:
    - Dwujęzyczny asystent głosowy (Web Speech API) mówiący w języku polskim (`pl-PL`) lub angielskim (`en-US`).
 5. **Dostępność cyfrowa (WCAG 2.2 AA) & Centrum Ustawień (⚙️)**:
    - Pełna obsługa klawiaturą (widoczne focus rings), semantyczny HTML dla czytników ekranu (`aria-live`, `aria-label`).
-   - Tryb wysokiego kontrastu (>7:1), skalowanie czcionki (Standardowa, Powiększona 115%, Duża 130%), krój pisma dla osób z dysleksją (OpenDyslexic) oraz redukcja animacji.
+   - Tryb wysokiego kontrastu (>7:1), responsywne skalowanie czcionki (Standardowa 100%, Powiększona 115%, Duża 130%) działające na poziomie jednostek `rem` całego dokumentu z podglądem na żywo, krój pisma dla osób z dysleksją (OpenDyslexic) oraz redukcja animacji.
    - Wszystkie opcje dostępności zgrupowane w jednym, przejrzystym panelu Ustawień.
 6. **Ekosystem Mieszkańców i Biznesu (Role i Konta)**:
    - **Profil Mieszkańca / Recenzenta**: historia wysłanych uwag, status weryfikacji społecznej, punkty reputacji (`+10 pkt`) oraz formularz dodawania korekty zintegrowany z panelem „Moje zgłoszenia”.
    - **Profil Biznesowy / Lokalu**: dedykowany moduł dodawania lokalu (`+ Dodaj lokal`), zgłaszanie parametrów wejścia, windy i toalety dla kawiarni, muzeów i hoteli.
    - Wygodny modal logowania i rejestracji (`AuthModal`) z podziałem na role.
 7. **Nowoczesna Strona Główna (HomePage)**:
-   - Jasny, elegancki baner w stylu aplikacji mobilnej (PWA) z 4 kluczowymi metrykami (*10+ Obiektów*, *100% Parametrów*, *Brak danych != Dostępne*, *WCAG 2.2 AA*).
+   - Prezentacja kluczowych metryk dostępności (*10+ Obiektów*, *100% Parametrów*, *Brak danych != Dostępne*, *WCAG 2.2 AA*).
    - Błyskawiczna wyszukiwarka z popularnymi tagami (Sukiennice, Wawel, Dworzec Główny, Planty, Kazimierz, Cricoteka).
    - Wyróżnione obiekty, interaktywne profile mobilności i planer tras.
 8. **Planer Dostępnych Tras Pieszych**:
    - Analiza etapów trasy krok po kroku (np. Dworzec Główny → Rynek Główny) z podziałem procentowym na nawierzchnie (płyty, asfalt, kocie łby).
-9. **Gotowość do chmury Google Cloud**:
-   - Skonteneryzowane obrazy Docker zoptymalizowane pod **Google Cloud Run** i automatyczny deploy (serverless).
+9. **📍 Zakres Pilotażu i Skalowalność Geograficzna**:
+   - **Obecny zakres demonstracyjny**: Skupia się na obszarze **Starego Miasta w Krakowie** (historyczne centrum, Wawel, Planty, Dworzec Główny) – terenie o najwyższym zagęszczeniu ruchu pieszego i specyficznych, zabytkowych barierach architektonicznych.
+   - **Powiększanie obszaru przy skalowaniu**: Architektura aplikacji oparta na OpenStreetMap oraz elastycznych bounding boxach pozwala w procesie skalowania na płynne poszerzanie zasięgu:
+     - **Faza I (Obecna)**: Stare Miasto w Krakowie (poligon pilotażowy),
+     - **Faza II**: Dzielnice przyległe i turystyczne (Kazimierz, Podgórze, Krowodrza, Grzegórzki, Nowa Huta),
+     - **Faza III**: Wszystkie 18 dzielnic Krakowa oraz obszar Metropolii Krakowskiej (węzły przesiadkowe, dworce, lotnisko Balice),
+     - **Faza IV**: Skalowanie krajowe i międzynarodowe (inne miasta zabytkowe w Polsce i Europie).
+10. **Gotowość do chmury Google Cloud**:
+    - Skonteneryzowane obrazy Docker zoptymalizowane pod **Google Cloud Run** i automatyczny deploy (serverless).
 
 ---
 

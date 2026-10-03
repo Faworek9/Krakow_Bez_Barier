@@ -7,7 +7,7 @@
 - **Wizualia**: Widok na ekran główny aplikacji AccessKraków. W tle historyczna mapa Krakowa (Rynek Główny / Sukiennice / Dworzec Główny) oraz jasny panel kluczowych wskaźników weryfikacji.
 - **Lektor**:
   > „Witajcie. Każdego dnia tysiące osób odwiedzają Kraków – osoby na wózkach inwalidzkich, rodzice z wózkami dziecięcymi czy turyści ciągnący ciężkie walizki po bruku. Dla nich proste oznaczenie 'miejsce dostępne' to za mało. Nie wiemy, czy w środku jest próg 5 cm, czy winda pomieści szeroki wózek elektryczny, a nawierzchnia to zabytkowe kocie łby.
-  > Oto 'Kraków Bez Barier' – narzędzie, które daje konkretne parametry architektoniczne, pełną dwujęzyczność (PL/EN) i transparentność źródeł.”
+  > Oto 'Kraków Bez Barier'. W pilotażowej wersji skupiliśmy się na historycznym Starym Mieście – terenie o największym nasyceniu zabytkowych barier. Nasze narzędzie daje konkretne parametry architektoniczne, pełną dwujęzyczność (PL/EN) i transparentność źródeł.”
 
 ---
 
@@ -53,6 +53,7 @@
      - Włączenie trybu wysokiego kontrastu (>7:1) i powiększenia tekstu.
   2. Pokaz nawigacji z klawiatury oraz przełącznika widoku na „Tylko Lista” (dla czytników ekranu).
 - **Lektor**:
-  > „Aplikacja została zaprojektowana zgodnie z WCAG 2.2 AA – posiada dedykowane centrum ustawień, tryb wysokiego kontrastu, skalowanie czcionki oraz pełną dwujęzyczność z lektorem mowy.
-  > Działa w chmurze Google Cloud Run w technologii serverless, co minimalizuje koszty i pozwala wdrożyć ją w dowolnym mieście w kilka dni.
+  > „Aplikacja została zaprojektowana zgodnie z WCAG 2.2 AA – posiada dedykowane centrum ustawień, tryb wysokiego kontrastu, płynne skalowanie czcionki oraz pełną dwujęzyczność z lektorem mowy.
+  > Nasz pilotaż na Starym Mieście dowodzi skuteczności algorytmu. Przy skalowaniu projektu bez problemu powiększymy obszar o Kazimierz, Nową Hutę, całą Metropolię Krakowską oraz kolejne miasta w Polsce i Europie.
+  > Działa w chmurze Google Cloud Run w technologii serverless, co minimalizuje koszty.
   > Dziękujemy – twórzmy razem Kraków bez barier!”

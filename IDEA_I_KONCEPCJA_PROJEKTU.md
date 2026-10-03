@@ -23,6 +23,9 @@ Wiele dotychczasowych prób cyfryzacji dostępności wymagało od użytkownika d
 ### 1.4. Wyzwanie międzynarodowe (Kraków – Światowe Dziedzictwo UNESCO)
 Kraków rocznie odwiedzają miliony turystów zagranicznych. Bariery architektoniczne nie znają granic językowych, dlatego platforma musi zapewniać natywną dwujęzyczność (język polski i angielski) zarówno w warstwie wizualnej, jak i audio (syntezator mowy).
 
+### 1.5. Obszar demonstracyjny (Stare Miasto) jako poligon wdrożeniowy
+Zabytkowe **Stare Miasto w Krakowie** (wraz z Wawelem, Plantami i Dworcem Głównym) to najbardziej wymagający poligon testowy dostępności miejskiej w Polsce. Występuje tu najwyższe nagromadzenie barier historycznych (zabytkowy bruk, strome progi, brak wind w sieniach kamienic) zestawione z gigantycznym ruchem pieszym turystów i mieszkańców. Dlatego **obecna baza demonstracyjna programu została celowo skoncentrowana na Starym Mieście**. Przy skalowaniu projektu obszar ten może być bez przeszkód powiększany o kolejne dzielnice i metropolię.
+
 ---
 
 ## 2. Główna Idea Rozwiązania (The Core Idea)
@@ -159,14 +162,22 @@ Projekt posiada dopracowany plan komercjalizacji i samofinansowania:
 
 ---
 
-## 7. Skalowalność na Inne Miasta
+## 7. Skalowalność i Etapy Ekspansji Geograficznej
 
-Platforma została zaprojektowana w architekturze modułowej:
+Platforma została zaprojektowana w elastycznej, modularnej architekturze, co umożliwia dwuwymiarowe skalowanie:
+
+### 7.1. Skalowanie wewnątrzmiejskie (Ekspansja obszaru w Krakowie)
+Obecny program jest celowo ograniczony do **Starego Miasta w Krakowie** jako demonstracyjnego poligonu pilotażowego o najwyższym stopniu trudności architektonicznej. W ramach skalowania projektu obszar ten jest sukcesywnie powiększany:
+1. **Faza I (Stan obecny – Pilotaż)**: Dzielnica I Stare Miasto (Wawel, Sukiennice, Rynek, Planty, Dworzec Główny PKP).
+2. **Faza II (Dzielnice sąsiednie i turystyczne)**: Rozszerzenie o Kazimierz, Podgórze, Krowodrzę, Grzegórzki oraz Nową Hutę.
+3. **Faza III (Cały Kraków & Metropolia)**: Wszystkie 18 dzielnic Krakowa, multimodalne węzły przesiadkowe (KST, Dworzec Płaszów, Lotnisko Kraków-Balice) oraz gminy Metropolii Krakowskiej (Wieliczka, Niepołomice, Skawina).
+
+### 7.2. Skalowanie na Inne Miasta (Kraj i Zagranica)
 1. **Baza na standardzie OpenStreetMap**: Model danych jest w 100% zbieżny z globalnym formatem OSM (tagi `wheelchair`, `kerb`, `step_count`, `surface`).
-2. **Dodanie nowego miasta (np. Wrocław, Gdańsk, Warszawa, Praga)**:
-   - Wymaga jedynie zdefiniowania współrzędnych geograficznych nowego obszaru oraz podpięcia lokalnego portalu danych publicznych.
+2. **Dodanie nowego miasta (np. Wrocław, Gdańsk, Warszawa, Praga, Wiedeń)**:
+   - Wymaga jedynie zdefiniowania współrzędnych geograficznych (`Bounding Box`) nowego obszaru oraz podpięcia lokalnego portalu danych publicznych.
    - Czas uruchomienia instancji dla kolejnego miasta wynosi **poniżej 48 godzin**.
-3. **Natywna dwujęzyczność**: Dzięki wbudowanemu modułowi i18n platforma może być błyskawicznie wdrożona w miastach poza granicami Polski.
+3. **Natywna dwujęzyczność (PL/EN)**: Dzięki wbudowanemu modułowi i18n platforma może być błyskawicznie wdrożona w miastach poza granicami Polski bez barier komunikacyjnych.
 
 ---
 

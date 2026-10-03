@@ -82,9 +82,13 @@
 
 ---
 
-## SLAJD 9: Skalowalność i Plan Przejścia do Stałej Usługi
-- **Łatwość wdrożenia w innych miastach**:
-  - Architektura oparta na standardzie OpenStreetMap, GeoJSON oraz moduł dwujęzyczności pozwala uruchomić aplikację w dowolnym mieście w Polsce i Europie w 48 godzin.
+## SLAJD 9: Skalowalność Geograficzna i Plan Przejścia do Stałej Usługi
+- **Obecny zakres pilotażowy**: Program w wersji MVP jest celowo ograniczony do **Starego Miasta w Krakowie** – poligonu o najwyższym stopniu trudności architektonicznej i natężeniu ruchu.
+- **Powiększanie obszaru przy skalowaniu**:
+  - **Faza I (Obecna)**: Stare Miasto (Rynek, Wawel, Planty, Dworzec Główny).
+  - **Faza II**: Sukcesywna ekspansja na kolejne dzielnice (Kazimierz, Podgórze, Krowodrza, Nowa Huta).
+  - **Faza III**: Cała Metropolia Krakowska (18 dzielnic, węzły przesiadkowe KST, dworce i lotnisko Balice).
+  - **Faza IV**: Skalowanie krajowe i międzynarodowe (inne miasta w Polsce i Europie w 48h dzięki OSM i i18n).
 - **Podmiot odpowiedzialny i utrzymanie**:
   - Spółka celowa / Partnerstwo NGO i Tech Startup.
   - Koszty stałe infrastruktury w Google Cloud Run: **poniżej 80-120 zł / mies.** w początkowej fazie dzięki serverless.
@@ -93,7 +97,7 @@
 ---
 
 ## SLAJD 10: Podsumowanie i Demonstracja
-- **Działający prototyp**: Przetestowany na kluczowych punktach Krakowa (Dworzec Główny, Rynek Główny, Wawel, Kazimierz).
-- **Bezpieczny, etyczny, transparentny**: Prawdziwe informacje, wyraźne ostrzeżenia o brakach danych, pełne wsparcie WCAG 2.2 AA oraz obsługa języka angielskiego.
-- **Gotowy do wdrożenia**: Repozytorium Docker + skrypty wdrożeniowe na Google Cloud Run.
+- **Działający prototyp**: W pełni przetestowany na Starym Mieście w Krakowie (Dworzec Główny, Rynek Główny, Sukiennice, Wawel).
+- **Bezpieczny, etyczny, transparentny**: Prawdziwe informacje, wyraźne ostrzeżenia o brakach danych, pełne wsparcie WCAG 2.2 AA (w tym naprawione, płynne skalowanie tekstu) oraz obsługa języka angielskiego.
+- **Gotowy do wdrożenia i ekspansji**: Repozytorium Docker + skrypty wdrożeniowe na Google Cloud Run, gotowe do natychmiastowego powiększenia obszaru.
 - **Dziękujemy za uwagę! Zapraszamy do zadawania pytań.**

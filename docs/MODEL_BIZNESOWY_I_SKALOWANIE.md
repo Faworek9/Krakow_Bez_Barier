@@ -92,9 +92,18 @@ Dzięki architekturze serverless opartej na **Google Cloud Run**, koszty rosną 
 
 ---
 
-## 5. Skalowalność na Inne Miasta (Kraj i Zagranica)
+## 5. Skalowalność Terytorialna (Kraków, Kraj i Zagranica)
 
-Architektura rozwiązania została zaprojektowana w sposób modularny i w 100% agnostyczny geograficznie:
+Architektura rozwiązania została zaprojektowana w sposób modularny i w 100% elastyczny geograficznie, co pozwala na etapową ekspansję:
+
+### 5.1. Etap pilotażowy vs Rozszerzanie obszaru Krakowa
+- **Obecny zakres programu (MVP)**: Skoncentrowany na **Starym Mieście w Krakowie** (rejon Rynku Głównego, Wawelu, Plant i Dworca Głównego). Jest to obszar o najwyższym nasyceniu zabytkowymi barierami architektonicznymi (kocie łby, zabytkowe sienie, stopnie) oraz kluczowym węzłem turystycznym.
+- **Powiększanie obszaru przy skalowaniu**:
+  - **Etap 1**: Stare Miasto (aktualny poligon pilotażowy).
+  - **Etap 2**: Kolejne dzielnice centralne i turystyczne – Kazimierz, Stare Podgórze, Krowodrza, Grzegórzki, Nowa Huta.
+  - **Etap 3**: Całe miasto Kraków (wszystkie 18 dzielnic) wraz z węzłami transportu publicznego (Krakowski Szybki Tramwaj, stacje kolejowe, Port Lotniczy Kraków-Balice) oraz obszar Metropolii Krakowskiej.
+
+### 5.2. Skalowalność na Inne Miasta (Kraj i Zagranica)
 1. **Uniwersalny model danych**: Model danych oparty o standard OpenStreetMap i GeoJSON funkcjonuje identycznie w każdym punkcie globu.
 2. **Natywna dwujęzyczność (i18n)**: Kompletne wsparcie języka polskiego i angielskiego sprawia, że platforma jest natychmiast gotowa do ekspansji zagranicznej (np. Praga, Wiedeń, Berlin).
 3. **Procedura dodania nowego miasta (np. Wrocław, Gdańsk, Warszawa)**:
