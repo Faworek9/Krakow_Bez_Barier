@@ -95,18 +95,6 @@ cd frontend
 & "C:\Program Files\nodejs\npm.cmd" run dev
 ```
 
----
-
-## ☁️ Wdrożenie na Google Cloud Run
-
-Projekt zawiera gotowy skrypt wdrożeniowy w katalogu `deployment/`:
-```bash
-export GCP_PROJECT_ID="twoj-projekt-gcp"
-export GCP_REGION="europe-west1" # lub europe-central2 (Warszawa)
-
-chmod +x deployment/gcp-cloud-run-deploy.sh
-./deployment/gcp-cloud-run-deploy.sh
-```
 
 ---
 
