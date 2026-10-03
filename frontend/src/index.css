@@ -13,6 +13,14 @@
     outline-offset: 2px !important;
   }
 
+  /* Usunięcie obwódki po kliknięciu myszką na pola wyszukiwania */
+  .search-input-no-outline,
+  .search-input-no-outline:focus,
+  .search-input-no-outline:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
   /* Tryb wysokiego kontrastu */
   .high-contrast {
     filter: contrast(135%);

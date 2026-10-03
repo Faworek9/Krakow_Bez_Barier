@@ -153,7 +153,7 @@ export const HomePage: React.FC<Props> = ({
 
           {/* Szybka Wyszukiwarka w Hero */}
           <form onSubmit={handleSearchSubmit} className="max-w-2xl mx-auto pt-2">
-            <div className="relative flex items-center bg-white rounded-2xl shadow-md p-2 border border-slate-200/90 focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-600/20 transition-all">
+            <div className="relative flex items-center bg-white rounded-2xl shadow-md p-2 border border-slate-200/90 transition-all">
               <Search className="w-5 h-5 text-slate-400 ml-3 shrink-0" aria-hidden="true" />
               <input
                 type="text"
@@ -161,7 +161,7 @@ export const HomePage: React.FC<Props> = ({
                 onChange={(e) => setSearchInput(e.target.value)}
                 placeholder="Czego szukasz? np. Wawel, Sukiennice, Dworzec, Cricoteka..."
                 aria-label="Wyszukaj obiekt lub miejsce w Krakowie"
-                className="w-full px-3 py-2 text-slate-900 text-sm focus:outline-hidden rounded-xl bg-transparent"
+                className="w-full px-3 py-2 text-slate-900 text-sm rounded-xl bg-transparent outline-none focus:outline-none focus:ring-0 search-input-no-outline"
               />
               <button
                 type="submit"

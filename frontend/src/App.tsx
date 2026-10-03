@@ -310,7 +310,7 @@ export const App: React.FC = () => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Szukaj obiektu lub ulicy (np. Sukiennice, Wawel, Dworzec, Floriańska, Cricoteka)..."
                   aria-label="Wyszukaj obiekt lub adres w Krakowie"
-                  className="w-full pl-9 pr-8 py-2 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                  className="w-full pl-9 pr-8 py-2 border border-slate-200 rounded-xl text-xs outline-none focus:outline-none focus:ring-0 search-input-no-outline"
                 />
                 {searchQuery && (
                   <button
