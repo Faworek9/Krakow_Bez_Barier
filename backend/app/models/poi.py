@@ -72,6 +72,7 @@ class POI(BaseModel):
     description: Optional[str] = None
     features: AccessibilityFeatures
     meta: DataProvenance
+    owner_user_id: Optional[str] = None
 
 class UserPreferences(BaseModel):
     """

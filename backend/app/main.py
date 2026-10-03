@@ -4,6 +4,7 @@ from app.config import settings
 from app.api.routes_poi import router as poi_router
 from app.api.routes_routing import router as routing_router
 from app.api.routes_feedback import router as feedback_router
+from app.api.routes_auth import router as auth_router
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -19,6 +20,7 @@ app = FastAPI(
     * **Ochrona prywatności (RODO)**: brak gromadzenia danych wrażliwych o stanie zdrowia użytkownika.
     """,
     openapi_tags=[
+        {"name": "Uwierzytelnianie i Profile (Konta)", "description": "Rejestracja, logowanie użytkowników i firm, konta demo"},
         {"name": "Miejsca i Obiekty (POI)", "description": "Wyszukiwanie, audyt i dopasowanie miejsc do profilu"},
         {"name": "Wyznaczanie Dostępnych Tras", "description": "Nawigacja z analizą nawierzchni, krawężników i schodów"},
         {"name": "Zgłoszenia Użytkowników i Aktualizacje", "description": "Korygowanie i dodawanie danych o barierach"}
@@ -35,9 +37,11 @@ app.add_middleware(
 )
 
 # Rejestracja routerów
+app.include_router(auth_router, prefix=settings.API_V1_PREFIX)
 app.include_router(poi_router, prefix=settings.API_V1_PREFIX)
 app.include_router(routing_router, prefix=settings.API_V1_PREFIX)
 app.include_router(feedback_router, prefix=settings.API_V1_PREFIX)
+
 
 @app.get("/health", tags=["System"])
 def health_check():

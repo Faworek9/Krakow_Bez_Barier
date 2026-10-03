@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { UserPreferences, EvaluatedPOI, POI, NavigationTab, AppSettings } from './types';
-import { SEED_POIS, evaluateAllLocally } from './data/seedPlaces';
+import { SEED_POIS, evaluateAllLocally, evaluatePoiLocally } from './data/seedPlaces';
 import { Navbar } from './components/Navbar';
 import { HomePage } from './components/HomePage';
 import { SettingsView } from './components/SettingsView';
@@ -10,6 +10,9 @@ import { MapView } from './components/MapView';
 import { RoutePlanner } from './components/RoutePlanner';
 import { POIDetailModal } from './components/POIDetailModal';
 import { ReportCorrectionModal } from './components/ReportCorrectionModal';
+import { AuthModal } from './components/AuthModal';
+import { BusinessPlaceModal } from './components/BusinessPlaceModal';
+import { UserReportsModal } from './components/UserReportsModal';
 import { Search, Map, List, CheckCircle, ShieldAlert, Sparkles, Filter, X } from 'lucide-react';
 
 const DEFAULT_PREFERENCES: UserPreferences = {
@@ -83,6 +86,17 @@ export const App: React.FC = () => {
   const [reportModalOpen, setReportModalOpen] = useState<boolean>(false);
   const [reportTargetPoi, setReportTargetPoi] = useState<POI | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Stany nowych modali autoryzacji i firm
+  const [authModalOpen, setAuthModalOpen] = useState<boolean>(false);
+  const [businessModalOpen, setBusinessModalOpen] = useState<boolean>(false);
+  const [userReportsModalOpen, setUserReportsModalOpen] = useState<boolean>(false);
+
+  const handlePlaceAdded = (newPoi: POI) => {
+    const newEval = evaluatePoiLocally(newPoi, preferences);
+    setEvaluatedPois((prev) => [{ poi: newPoi, evaluation: newEval }, ...prev]);
+    handleNavigateToTab('places', newPoi.name);
+  };
 
   // Synchronizacja preferencji z localStorage
   useEffect(() => {
@@ -246,6 +260,9 @@ export const App: React.FC = () => {
           setReportTargetPoi(null);
           setReportModalOpen(true);
         }}
+        onOpenAuthModal={() => setAuthModalOpen(true)}
+        onOpenBusinessModal={() => setBusinessModalOpen(true)}
+        onOpenUserReportsModal={() => setUserReportsModalOpen(true)}
       />
 
       {/* Główna Zawartość Strony */}
@@ -475,6 +492,27 @@ export const App: React.FC = () => {
         isOpen={reportModalOpen}
         onClose={() => setReportModalOpen(false)}
         onSuccessNotification={showToast}
+      />
+
+      {/* Modal Logowania i Rejestracji (Użytkownicy i Firmy) */}
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        onSuccessNotification={showToast}
+      />
+
+      {/* Modal Deklaracji i Dodawania Nowego Lokalu przez Firmy */}
+      <BusinessPlaceModal
+        isOpen={businessModalOpen}
+        onClose={() => setBusinessModalOpen(false)}
+        onPlaceAdded={handlePlaceAdded}
+        onSuccessNotification={showToast}
+      />
+
+      {/* Modal Zgłoszeń i Recenzji Mieszkańca */}
+      <UserReportsModal
+        isOpen={userReportsModalOpen}
+        onClose={() => setUserReportsModalOpen(false)}
       />
 
       {/* Profesjonalna Stopka Miejska */}

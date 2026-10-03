@@ -1,6 +1,7 @@
 import React from 'react';
-import { Eye, PlusCircle, Compass, MapPin, Home, Settings, Type } from 'lucide-react';
+import { Eye, PlusCircle, Compass, MapPin, Home, Settings, Type, LogIn, LogOut, User as UserIcon, Building2, MessageSquare } from 'lucide-react';
 import { NavigationTab } from '../types';
+import { useAuth } from '../context/AuthContext';
 
 interface Props {
   highContrast: boolean;
@@ -10,6 +11,9 @@ interface Props {
   activeTab: NavigationTab;
   onSelectTab: (tab: NavigationTab) => void;
   onOpenReportModal: () => void;
+  onOpenAuthModal: () => void;
+  onOpenBusinessModal: () => void;
+  onOpenUserReportsModal: () => void;
 }
 
 export const Navbar: React.FC<Props> = ({
@@ -19,8 +23,12 @@ export const Navbar: React.FC<Props> = ({
   onCycleTextSize,
   activeTab,
   onSelectTab,
-  onOpenReportModal
+  onOpenReportModal,
+  onOpenAuthModal,
+  onOpenBusinessModal,
+  onOpenUserReportsModal
 }) => {
+  const { user, isLoggedIn, isBusiness, logout } = useAuth();
   const getTextSizeLabel = () => {
     if (textSize === 'xlarge') return 'A++';
     if (textSize === 'large') return 'A+';
@@ -158,6 +166,79 @@ export const Navbar: React.FC<Props> = ({
               <PlusCircle className="w-4 h-4" aria-hidden="true" />
               <span className="hidden sm:inline">Zgłoś barierę</span>
             </button>
+
+            {/* SEKCJA UWIERZYTELNIANIA (Użytkownicy i Firmy) */}
+            <div className="h-6 w-px bg-slate-200 hidden sm:block mx-1"></div>
+
+            {isLoggedIn && user ? (
+              <div className="flex items-center gap-1.5">
+                {isBusiness ? (
+                  /* PROFIL FIRMY / LOKALU */
+                  <>
+                    <button
+                      type="button"
+                      onClick={onOpenBusinessModal}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white shadow-xs transition-colors shrink-0"
+                      title="Dodaj swój lokal do oficjalnej bazy dostępności"
+                    >
+                      <Building2 className="w-4 h-4" />
+                      <span className="hidden md:inline">+ Dodaj lokal</span>
+                    </button>
+                    <div className="hidden lg:flex flex-col text-left px-2">
+                      <span className="text-[11px] font-bold text-slate-800 leading-tight truncate max-w-[130px]">
+                        {user.business_info?.company_name || user.display_name}
+                      </span>
+                      <span className="text-[9px] font-semibold text-amber-700 uppercase tracking-wider">
+                        Profil Firmowy
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  /* PROFIL MIESZKAŃCA / RECENZENTA */
+                  <>
+                    <button
+                      type="button"
+                      onClick={onOpenUserReportsModal}
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 transition-colors"
+                      title="Zobacz Twoje przesłane zgłoszenia i korekty"
+                    >
+                      <MessageSquare className="w-3.5 h-3.5 text-blue-600" />
+                      <span className="hidden md:inline">Moje zgłoszenia</span>
+                    </button>
+                    <div className="hidden lg:flex flex-col text-left px-1.5">
+                      <span className="text-[11px] font-bold text-slate-800 leading-tight truncate max-w-[120px]">
+                        {user.display_name}
+                      </span>
+                      <span className="text-[9px] font-semibold text-emerald-700">
+                        {user.reputation_points} pkt
+                      </span>
+                    </div>
+                  </>
+                )}
+
+                <button
+                  type="button"
+                  onClick={logout}
+                  title="Wyloguj się"
+                  aria-label="Wyloguj się z platformy"
+                  className="p-1.5 rounded-xl text-slate-500 hover:text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 transition-all"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              /* PRZYCISK LOGOWANIA DLA NIEZALOGOWANYCH */
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={onOpenAuthModal}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white transition-colors shadow-xs"
+                >
+                  <LogIn className="w-3.5 h-3.5" />
+                  <span>Zaloguj</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
