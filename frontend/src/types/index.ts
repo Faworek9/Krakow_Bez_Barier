@@ -118,6 +118,7 @@ export interface RouteSegment {
   warning: string | null;
   lat: number;
   lng: number;
+  path?: [number, number][];
 }
 
 export interface RouteResponse {

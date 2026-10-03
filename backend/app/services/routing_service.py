@@ -1,5 +1,5 @@
 from typing import List, Optional, Dict, Any
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from app.models.poi import UserPreferences, SurfaceType
 
 class RouteSegment(BaseModel):
@@ -15,6 +15,7 @@ class RouteSegment(BaseModel):
     warning: Optional[str] = None
     lat: float
     lng: float
+    path: List[List[float]] = Field(default_factory=list)
 
 class RouteResponse(BaseModel):
     route_id: str
@@ -32,7 +33,7 @@ class RouteResponse(BaseModel):
     barriers_detected: List[str]
     advantages_detected: List[str]
 
-# Predefiniowane trasy demonstracyjne w centrum Krakowa
+# Predefiniowane trasy demonstracyjne w centrum Krakowa z precyzyjnymi współrzędnymi ulic
 DEMO_ROUTES: Dict[str, Dict[str, Any]] = {
     "dworzec-rynek": {
         "route_id": "dworzec-rynek",
@@ -59,7 +60,12 @@ DEMO_ROUTES: Dict[str, Dict[str, Any]] = {
                 "incline_percent": 0.0,
                 "warning": None,
                 "lat": 50.0672,
-                "lng": 19.9485
+                "lng": 19.9485,
+                "path": [
+                    [50.0672, 19.9485],
+                    [50.0666, 19.9472],
+                    [50.0658, 19.9460]
+                ]
             },
             {
                 "step_number": 2,
@@ -73,7 +79,13 @@ DEMO_ROUTES: Dict[str, Dict[str, Any]] = {
                 "incline_percent": 0.0,
                 "warning": None,
                 "lat": 50.0655,
-                "lng": 19.9455
+                "lng": 19.9455,
+                "path": [
+                    [50.0658, 19.9460],
+                    [50.0652, 19.9450],
+                    [50.0645, 19.9440],
+                    [50.0638, 19.9429]
+                ]
             },
             {
                 "step_number": 3,
@@ -85,9 +97,15 @@ DEMO_ROUTES: Dict[str, Dict[str, Any]] = {
                 "steps_count": 0,
                 "has_incline": False,
                 "incline_percent": 1.5,
-                "warning": "Miejsca odpoczynku: ławki co 30 metrów",
+                "warning": "Miejsca odpoczynku: ławki co 30 metrów, gładki asfalt.",
                 "lat": 50.0638,
-                "lng": 19.9429
+                "lng": 19.9429,
+                "path": [
+                    [50.0638, 19.9429],
+                    [50.0635, 19.9420],
+                    [50.0631, 19.9408],
+                    [50.0628, 19.9395]
+                ]
             },
             {
                 "step_number": 4,
@@ -101,7 +119,13 @@ DEMO_ROUTES: Dict[str, Dict[str, Any]] = {
                 "incline_percent": 0.0,
                 "warning": None,
                 "lat": 50.0628,
-                "lng": 19.9395
+                "lng": 19.9395,
+                "path": [
+                    [50.0628, 19.9395],
+                    [50.0624, 19.9386],
+                    [50.0620, 19.9379],
+                    [50.0617, 19.9373]
+                ]
             },
             {
                 "step_number": 5,
@@ -115,7 +139,12 @@ DEMO_ROUTES: Dict[str, Dict[str, Any]] = {
                 "incline_percent": 0.0,
                 "warning": "Płyta Rynku posiada kostkę brukową – zalecane poruszanie się pasami z gładkich płyt granitowych.",
                 "lat": 50.0617,
-                "lng": 19.9373
+                "lng": 19.9373,
+                "path": [
+                    [50.0617, 19.9373],
+                    [50.0616, 19.9366],
+                    [50.0615, 19.9358]
+                ]
             }
         ]
     },
@@ -142,8 +171,13 @@ DEMO_ROUTES: Dict[str, Dict[str, Any]] = {
                 "has_incline": False,
                 "incline_percent": 0.0,
                 "warning": None,
-                "lat": 50.0605,
-                "lng": 19.9378
+                "lat": 50.0615,
+                "lng": 19.9358,
+                "path": [
+                    [50.0615, 19.9358],
+                    [50.0610, 19.9368],
+                    [50.0602, 19.9378]
+                ]
             },
             {
                 "step_number": 2,
@@ -156,8 +190,14 @@ DEMO_ROUTES: Dict[str, Dict[str, Any]] = {
                 "has_incline": False,
                 "incline_percent": 0.0,
                 "warning": "Przejazd przez torowisko tramwajowe na pl. Wszystkich Świętych – obniżone krawężniki.",
-                "lat": 50.0585,
-                "lng": 19.9385
+                "lat": 50.0602,
+                "lng": 19.9378,
+                "path": [
+                    [50.0602, 19.9378],
+                    [50.0594, 19.9382],
+                    [50.0585, 19.9385],
+                    [50.0576, 19.9383]
+                ]
             },
             {
                 "step_number": 3,
@@ -170,8 +210,14 @@ DEMO_ROUTES: Dict[str, Dict[str, Any]] = {
                 "has_incline": True,
                 "incline_percent": 3.0,
                 "warning": "Nawierzchnia typu kocie łby. Wózki i walizki mogą odczuwać znaczne drgania.",
-                "lat": 50.0560,
-                "lng": 19.9370
+                "lat": 50.0576,
+                "lng": 19.9383,
+                "path": [
+                    [50.0576, 19.9383],
+                    [50.0568, 19.9376],
+                    [50.0560, 19.9370],
+                    [50.0552, 19.9363]
+                ]
             },
             {
                 "step_number": 4,
@@ -183,9 +229,14 @@ DEMO_ROUTES: Dict[str, Dict[str, Any]] = {
                 "steps_count": 0,
                 "has_incline": True,
                 "incline_percent": 8.5,
-                "warning": "Strome podejście (8.5%). Dla osób na wózkach manualnych zalecana asysta.",
-                "lat": 50.0544,
-                "lng": 19.9354
+                "warning": "Strome podejście (8.5%) i kocie łby. Dla osób na wózkach manualnych zalecana asysta.",
+                "lat": 50.0552,
+                "lng": 19.9363,
+                "path": [
+                    [50.0552, 19.9363],
+                    [50.0548, 19.9358],
+                    [50.0544, 19.9354]
+                ]
             }
         ]
     }
