@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { UserReportItem } from '../types';
-import { X, MessageSquare, CheckCircle2, Clock, AlertCircle, MapPin } from 'lucide-react';
+import { X, MessageSquare, CheckCircle2, Clock, AlertCircle, MapPin, PlusCircle } from 'lucide-react';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onOpenNewReport?: () => void;
 }
 
-export const UserReportsModal: React.FC<Props> = ({ isOpen, onClose }) => {
+export const UserReportsModal: React.FC<Props> = ({ isOpen, onClose, onOpenNewReport }) => {
   const { user, token } = useAuth();
   const [reports, setReports] = useState<UserReportItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -61,9 +62,24 @@ export const UserReportsModal: React.FC<Props> = ({ isOpen, onClose }) => {
               Twoje Zgłoszenia i Korekty Barier
             </h3>
           </div>
-          <p className="text-xs text-blue-100">
+          <p className="text-xs text-blue-100 mb-4">
             Dziękujemy za współtworzenie dostępnego Krakowa! Poniżej znajdziesz historię przesłanych przez Ciebie uwag.
           </p>
+
+          {/* Przeniesiony przycisk zgłaszania bariery w oknie "Moje zgłoszenia" */}
+          {onOpenNewReport && (
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                onOpenNewReport();
+              }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-white text-blue-800 hover:bg-blue-50 transition-all shadow-md hover:scale-[1.02] active:scale-95"
+            >
+              <PlusCircle className="w-4 h-4 text-blue-700" />
+              <span>Zgłoś barierę / Dodaj korektę</span>
+            </button>
+          )}
         </div>
 
         <div className="p-6 max-h-[60vh] overflow-y-auto text-xs">
@@ -73,12 +89,25 @@ export const UserReportsModal: React.FC<Props> = ({ isOpen, onClose }) => {
               <p>Wczytywanie Twoich uwag z chmury...</p>
             </div>
           ) : reports.length === 0 ? (
-            <div className="py-8 text-center text-slate-500 space-y-2">
+            <div className="py-8 text-center text-slate-500 space-y-3">
               <AlertCircle className="w-10 h-10 text-slate-300 mx-auto" />
               <p className="font-semibold text-slate-700">Nie masz jeszcze żadnych zapisanych zgłoszeń.</p>
               <p className="text-[11px] text-slate-500 max-w-xs mx-auto">
-                Gdy zauważysz zepsutą windę, stromy krawężnik lub schody bez rampy, kliknij przycisk „Zgłoś barierę” przy obiekcie!
+                Gdy zauważysz zepsutą windę, stromy krawężnik lub schody bez rampy, kliknij przycisk poniżej!
               </p>
+              {onOpenNewReport && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    onOpenNewReport();
+                  }}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-blue-700 hover:bg-blue-800 text-white shadow-xs transition-colors"
+                >
+                  <PlusCircle className="w-4 h-4" />
+                  <span>Zgłoś nową barierę</span>
+                </button>
+              )}
             </div>
           ) : (
             <div className="space-y-3">

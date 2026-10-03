@@ -517,6 +517,11 @@ export const App: React.FC = () => {
       <UserReportsModal
         isOpen={userReportsModalOpen}
         onClose={() => setUserReportsModalOpen(false)}
+        onOpenNewReport={() => {
+          setUserReportsModalOpen(false);
+          setReportTargetPoi(null);
+          setReportModalOpen(true);
+        }}
       />
 
       {/* Profesjonalna Stopka Miejska */}
