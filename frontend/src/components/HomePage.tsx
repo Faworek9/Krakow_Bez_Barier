@@ -20,7 +20,11 @@ import {
   Eye,
   Settings,
   Sparkles,
-  Info
+  Info,
+  Smartphone,
+  Zap,
+  Ruler,
+  ShieldAlert
 } from 'lucide-react';
 
 interface Props {
@@ -214,7 +218,202 @@ export const HomePage: React.FC<Props> = ({
         </div>
       </section>
 
-      {/* 2. SZYBKI WYBÓR PROFILU MOBILNOŚCI */}
+      {/* 2. PREZENTACJA / REKLAMA MOŻLIWOŚCI APLIKACJI (4 FILARY DOSTĘPNOŚCI) - JASNY MOTYW */}
+      <section 
+        aria-label="Prezentacja kluczowych możliwości aplikacji Kraków Bez Barier" 
+        className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-50/70 via-white to-indigo-50/60 text-slate-900 p-6 sm:p-8 lg:p-10 shadow-md border border-blue-200/80"
+      >
+        {/* Rozmyte światła ambientowe w stylu reklamy aplikacji */}
+        <div className="absolute -top-32 -right-32 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-emerald-300/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-purple-300/10 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Nagłówek w stylu reklamy aplikacji */}
+        <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/90 border border-blue-200 text-blue-800 text-xs font-bold tracking-wide mb-3 shadow-2xs">
+              <Smartphone className="w-3.5 h-3.5 text-blue-700 shrink-0" />
+              <span>APLIKACJA MIEJSKA NOWEJ GENERACJI • WEB & PWA</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse ml-1" />
+              <span className="text-emerald-700 font-bold">LIVE</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+              Aplikacja, która nie zgaduje Twojej drogi
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-2xl leading-relaxed">
+              Standardowe mapy kończą się na ogólnym znaczku „dostępne”. Kraków Bez Barier dostarcza twarde fakty, wymiary w centymetrach i pełną transparentność danych.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 self-start md:self-auto">
+            <div className="px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-bold text-slate-700 flex items-center gap-1.5 shadow-xs">
+              <Zap className="w-3.5 h-3.5 text-amber-500" />
+              <span>Błyskawiczna (PWA)</span>
+            </div>
+            <div className="px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-bold text-slate-700 flex items-center gap-1.5 shadow-xs">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Zero Śledzenia RODO</span>
+            </div>
+          </div>
+        </div>
+
+        {/* 4 Kluczowe Karty Reklamowe (Dokładne elementy użytkownika w jasnym stylu) */}
+        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Karta 1: 10+ Obiektów */}
+          <div className="bg-white hover:bg-blue-50/40 rounded-2xl p-5 border border-slate-200 hover:border-blue-300 transition-all duration-300 shadow-xs hover:shadow-md flex flex-col justify-between group hover:-translate-y-1">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 border border-blue-200 flex items-center justify-center group-hover:scale-110 transition-transform shadow-2xs">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                  Baza Wiedzy
+                </span>
+              </div>
+              <div className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight group-hover:text-blue-700 transition-colors">
+                10+ Obiektów
+              </div>
+              <div className="text-xs font-semibold text-slate-700 mt-1 leading-snug">
+                Zweryfikowanych kluczowych punktów w Krakowie
+              </div>
+              <p className="text-[11px] text-slate-500 mt-2.5 leading-relaxed">
+                Wawel, Sukiennice, Dworzec Główny i zabytki. Wszystkie sprawdzone w terenie pod kątem realnych barier architektonicznych.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600 font-medium">
+              <span className="flex items-center gap-1 text-emerald-700">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span>Audyt terenowy</span>
+              </span>
+              <span className="text-slate-400 group-hover:text-slate-600 transition-colors">UMK / OSM</span>
+            </div>
+          </div>
+
+          {/* Karta 2: 100% Parametrów */}
+          <div className="bg-white hover:bg-emerald-50/40 rounded-2xl p-5 border border-slate-200 hover:border-emerald-300 transition-all duration-300 shadow-xs hover:shadow-md flex flex-col justify-between group hover:-translate-y-1">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 border border-emerald-200 flex items-center justify-center group-hover:scale-110 transition-transform shadow-2xs">
+                  <Ruler className="w-5 h-5" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  Twarde Liczby
+                </span>
+              </div>
+              <div className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight group-hover:text-emerald-700 transition-colors">
+                100% Parametrów
+              </div>
+              <div className="text-xs font-semibold text-slate-700 mt-1 leading-snug">
+                Centymetry i stopnie zamiast ogólnego „dostępne”
+              </div>
+              <p className="text-[11px] text-slate-500 mt-2.5 leading-relaxed">
+                Precyzyjne wymiary drzwi, progów, nachylenia ramp i kabin toalet. Ty sam decydujesz, co jest dla Ciebie bezpieczne.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600 font-medium">
+              <span className="flex items-center gap-1 text-emerald-700">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span>Dokładność do cm</span>
+              </span>
+              <span className="text-slate-400 group-hover:text-slate-600 transition-colors">Zero ogólników</span>
+            </div>
+          </div>
+
+          {/* Karta 3: Brak danych != Dostępne */}
+          <div className="bg-white hover:bg-amber-50/40 rounded-2xl p-5 border border-slate-200 hover:border-amber-300 transition-all duration-300 shadow-xs hover:shadow-md flex flex-col justify-between group hover:-translate-y-1">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 border border-amber-200 flex items-center justify-center group-hover:scale-110 transition-transform shadow-2xs">
+                  <ShieldAlert className="w-5 h-5" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+                  Uczciwość Danych
+                </span>
+              </div>
+              <div className="text-xl sm:text-2xl lg:text-[1.65rem] font-black text-slate-900 tracking-tight group-hover:text-amber-800 transition-colors flex items-center gap-1.5 flex-wrap">
+                <span>Brak danych</span>
+                <span className="px-1.5 py-0.5 rounded bg-amber-100 border border-amber-300 text-amber-900 font-mono text-base font-bold">!=</span>
+                <span>Dostępne</span>
+              </div>
+              <div className="text-xs font-semibold text-slate-700 mt-1 leading-snug">
+                Luki informacyjne są oznaczane jako ostrzeżenia
+              </div>
+              <p className="text-[11px] text-slate-500 mt-2.5 leading-relaxed">
+                Nigdy nie ryzykujemy Twojego bezpieczeństwa domysłami. Gdy brak audytu wejścia, system wyraźnie informuje o luce.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600 font-medium">
+              <span className="flex items-center gap-1 text-amber-700">
+                <AlertTriangle className="w-3.5 h-3.5" />
+                <span>Czerwona flaga</span>
+              </span>
+              <span className="text-slate-400 group-hover:text-slate-600 transition-colors">Zero domysłów</span>
+            </div>
+          </div>
+
+          {/* Karta 4: WCAG 2.2 AA */}
+          <div className="bg-white hover:bg-purple-50/40 rounded-2xl p-5 border border-slate-200 hover:border-purple-300 transition-all duration-300 shadow-xs hover:shadow-md flex flex-col justify-between group hover:-translate-y-1">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 border border-purple-200 flex items-center justify-center group-hover:scale-110 transition-transform shadow-2xs">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200">
+                  Standard Cyfrowy
+                </span>
+              </div>
+              <div className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight group-hover:text-purple-700 transition-colors">
+                WCAG 2.2 AA
+              </div>
+              <div className="text-xs font-semibold text-slate-700 mt-1 leading-snug">
+                Kontrast, powiększenie tekstu i obsługa czytników
+              </div>
+              <p className="text-[11px] text-slate-500 mt-2.5 leading-relaxed">
+                Aplikacja dostępna cyfrowo: tryb wysokiego kontrastu, czcionka ułatwiająca czytanie przy dysleksji i nawigacja klawiaturą.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600 font-medium">
+              <span className="flex items-center gap-1 text-purple-700">
+                <Eye className="w-3.5 h-3.5" />
+                <span>Pełna dostępność</span>
+              </span>
+              <span className="text-slate-400 group-hover:text-slate-600 transition-colors">EAA Standard</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Dolny baner reklamowy - Instalacja PWA i mobilność (Jasny motyw) */}
+        <div className="relative z-10 mt-6 pt-5 border-t border-blue-100 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/80 backdrop-blur-xs -mx-6 sm:-mx-8 lg:-mx-10 -mb-6 sm:-mb-8 lg:-mb-10 p-5 sm:p-6 rounded-b-3xl border-b border-x border-blue-200/60">
+          <div className="flex items-center gap-3.5 text-center sm:text-left">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20 shrink-0 hidden sm:flex">
+              <Smartphone className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-xs sm:text-sm font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2 flex-wrap">
+                <span>Zainstaluj na smartfonie bezpośrednio z przeglądarki (PWA)</span>
+                <span className="px-2 py-0.5 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-[10px] font-bold">
+                  Bez pobierania ze sklepu
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-600 mt-0.5">
+                Brak opłat, 100% zgodności z RODO, błyskawiczne działanie w terenie i oszczędność baterii podczas spaceru po Krakowie.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => onNavigateToTab('places')}
+              className="px-4 py-2.5 bg-blue-700 hover:bg-blue-800 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-blue-700/20 flex items-center gap-1.5 hover:scale-105"
+            >
+              <span>Przeglądaj obiekty</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. SZYBKI WYBÓR PROFILU MOBILNOŚCI */}
       <section aria-labelledby="profile-heading" className="bg-white rounded-3xl p-6 sm:p-8 shadow-xs border border-slate-200">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
           <div>
@@ -348,49 +547,6 @@ export const HomePage: React.FC<Props> = ({
               <div className="flex justify-between"><span>Bruk kamienny:</span> <strong className="text-rose-700">Unikaj</strong></div>
             </div>
           </button>
-        </div>
-      </section>
-
-      {/* 3. LICZNIKI I FAKTY O DOSTĘPNOŚCI KRAKOWA */}
-      <section aria-label="Kluczowe statystyki projektu" className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between">
-          <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center mb-2">
-            <MapPin className="w-4 h-4" />
-          </div>
-          <div>
-            <div className="text-2xl font-black text-slate-900">10+ Obiektów</div>
-            <div className="text-xs text-slate-500 mt-0.5">Zweryfikowanych kluczowych punktów w Krakowie</div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between">
-          <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center mb-2">
-            <CheckCircle2 className="w-4 h-4" />
-          </div>
-          <div>
-            <div className="text-2xl font-black text-slate-900">100% Parametrów</div>
-            <div className="text-xs text-slate-500 mt-0.5">Centymetry i stopnie zamiast ogólnego „dostępne”</div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between">
-          <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center mb-2">
-            <ShieldCheck className="w-4 h-4" />
-          </div>
-          <div>
-            <div className="text-2xl font-black text-slate-900">Brak danych != Dostępne</div>
-            <div className="text-xs text-slate-500 mt-0.5">Luki informacyjne są oznaczane jako ostrzeżenia</div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between">
-          <div className="w-8 h-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center mb-2">
-            <Eye className="w-4 h-4" />
-          </div>
-          <div>
-            <div className="text-2xl font-black text-slate-900">WCAG 2.2 AA</div>
-            <div className="text-xs text-slate-500 mt-0.5">Kontrast, powiększenie tekstu i obsługa czytników</div>
-          </div>
         </div>
       </section>
 

@@ -58,9 +58,6 @@ export const Navbar: React.FC<Props> = ({
                   AccessKraków
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 hidden sm:block">
-                Parametryczna ocena dostępności przestrzeni miejskiej
-              </p>
             </div>
           </button>
 
@@ -103,19 +100,6 @@ export const Navbar: React.FC<Props> = ({
             >
               <Compass className="w-4 h-4" aria-hidden="true" />
               Dostępne Trasy Piesze
-            </button>
-
-            <button
-              type="button"
-              onClick={() => onSelectTab('settings')}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
-                activeTab === 'settings'
-                  ? 'bg-white text-blue-700 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <Settings className="w-4 h-4" aria-hidden="true" />
-              Ustawienia i Opcje
             </button>
           </nav>
 
