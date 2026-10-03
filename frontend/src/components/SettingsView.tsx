@@ -263,10 +263,13 @@ export const SettingsView: React.FC<Props> = ({
               <div className="flex items-center gap-2 pt-1">
                 <button
                   type="button"
-                  onClick={() => onUpdateSettings({ ...settings, textSize: 'normal' })}
+                  onClick={() => {
+                    onUpdateSettings({ ...settings, textSize: 'normal' });
+                    onShowToast?.(language === 'en' ? 'Font size restored to Standard (100%)' : 'Przywrócono standardowy rozmiar tekstu (100%)');
+                  }}
                   className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold border transition-all ${
                     settings.textSize === 'normal'
-                      ? 'bg-blue-700 text-white border-blue-700'
+                      ? 'bg-blue-700 text-white border-blue-700 shadow-xs'
                       : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-100'
                   }`}
                 >
@@ -274,10 +277,13 @@ export const SettingsView: React.FC<Props> = ({
                 </button>
                 <button
                   type="button"
-                  onClick={() => onUpdateSettings({ ...settings, textSize: 'large' })}
+                  onClick={() => {
+                    onUpdateSettings({ ...settings, textSize: 'large' });
+                    onShowToast?.(language === 'en' ? 'Font size enlarged to +15%' : 'Rozmiar tekstu powiększony do +15%');
+                  }}
                   className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold border transition-all ${
                     settings.textSize === 'large'
-                      ? 'bg-blue-700 text-white border-blue-700'
+                      ? 'bg-blue-700 text-white border-blue-700 shadow-xs'
                       : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-100'
                   }`}
                 >
@@ -285,15 +291,30 @@ export const SettingsView: React.FC<Props> = ({
                 </button>
                 <button
                   type="button"
-                  onClick={() => onUpdateSettings({ ...settings, textSize: 'xlarge' })}
+                  onClick={() => {
+                    onUpdateSettings({ ...settings, textSize: 'xlarge' });
+                    onShowToast?.(language === 'en' ? 'Font size enlarged to +30%' : 'Rozmiar tekstu powiększony do +30%');
+                  }}
                   className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold border transition-all ${
                     settings.textSize === 'xlarge'
-                      ? 'bg-blue-700 text-white border-blue-700'
+                      ? 'bg-blue-700 text-white border-blue-700 shadow-xs'
                       : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-100'
                   }`}
                 >
                   {t('textSizeXLarge')}
                 </button>
+              </div>
+
+              {/* Podgląd na żywo */}
+              <div className="mt-2 p-2.5 bg-white rounded-xl border border-slate-200 text-slate-800">
+                <span className="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">
+                  {language === 'en' ? 'Live text preview:' : 'Podgląd na żywo:'}
+                </span>
+                <p className="text-xs font-semibold leading-relaxed">
+                  {language === 'en'
+                    ? 'Accessible Krakow — Comfortable navigation for all residents & tourists.'
+                    : 'Kraków Bez Barier — Wygodna nawigacja miejska dla mieszkańców i turystów.'}
+                </p>
               </div>
             </div>
 

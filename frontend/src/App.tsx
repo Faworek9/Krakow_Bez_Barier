@@ -118,6 +118,40 @@ export const App: React.FC = () => {
     }
   }, [settings]);
 
+  // Synchronizacja klas dostępności z elementem html (root) dla poprawnego skalowania REM i standardu WCAG
+  useEffect(() => {
+    const root = document.documentElement;
+
+    // Rozmiar czcionki (skalowanie jednostek rem w całym dokumencie)
+    root.classList.remove('text-scale-large', 'text-scale-xlarge');
+    if (settings.textSize === 'large') {
+      root.classList.add('text-scale-large');
+    } else if (settings.textSize === 'xlarge') {
+      root.classList.add('text-scale-xlarge');
+    }
+
+    // Tryb wysokiego kontrastu
+    if (settings.highContrast) {
+      root.classList.add('high-contrast');
+    } else {
+      root.classList.remove('high-contrast');
+    }
+
+    // Czcionka dla osób z dysleksją
+    if (settings.dyslexicFont) {
+      root.classList.add('dyslexic-mode');
+    } else {
+      root.classList.remove('dyslexic-mode');
+    }
+
+    // Redukcja animacji
+    if (settings.reducedMotion) {
+      root.classList.add('reduced-motion');
+    } else {
+      root.classList.remove('reduced-motion');
+    }
+  }, [settings]);
+
   // Pobieranie i ocena obiektów z backendu FastAPI z bezpiecznym fallbackiem
   useEffect(() => {
     let isCancelled = false;

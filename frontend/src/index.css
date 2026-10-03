@@ -22,33 +22,68 @@
   }
 
   /* Tryb wysokiego kontrastu */
+  html.high-contrast,
   .high-contrast {
     filter: contrast(135%);
   }
 
+  html.high-contrast :focus-visible,
   .high-contrast :focus-visible {
     outline: 4px solid #FFFF00 !important;
     outline-offset: 3px !important;
   }
 
   /* Skalowanie rozmiaru czcionki dla osób słabowidzących (WCAG 1.4.4 Resize text) */
-  .text-scale-large {
-    font-size: 114%;
+  html.text-scale-large,
+  :root.text-scale-large {
+    font-size: 115% !important;
   }
 
-  .text-scale-xlarge {
-    font-size: 128%;
+  html.text-scale-xlarge,
+  :root.text-scale-xlarge {
+    font-size: 130% !important;
+  }
+
+  /* Skalowanie elementów z bezpośrednimi wartościami w pikselach */
+  html.text-scale-large [class*="text-[9px]"],
+  .text-scale-large [class*="text-[9px]"] {
+    font-size: 10.5px !important;
+  }
+  html.text-scale-large [class*="text-[10px]"],
+  .text-scale-large [class*="text-[10px]"] {
+    font-size: 11.5px !important;
+  }
+  html.text-scale-large [class*="text-[11px]"],
+  .text-scale-large [class*="text-[11px]"] {
+    font-size: 12.65px !important;
+  }
+
+  html.text-scale-xlarge [class*="text-[9px]"],
+  .text-scale-xlarge [class*="text-[9px]"] {
+    font-size: 12px !important;
+  }
+  html.text-scale-xlarge [class*="text-[10px]"],
+  .text-scale-xlarge [class*="text-[10px]"] {
+    font-size: 13px !important;
+  }
+  html.text-scale-xlarge [class*="text-[11px]"],
+  .text-scale-xlarge [class*="text-[11px]"] {
+    font-size: 14.3px !important;
   }
 
   /* Krój ułatwiający czytanie dla osób z dysleksją */
-  .dyslexic-mode {
+  html.dyslexic-mode,
+  html.dyslexic-mode *,
+  .dyslexic-mode,
+  .dyslexic-mode * {
     font-family: 'Comic Sans MS', 'Trebuchet MS', 'Segoe UI', Tahoma, sans-serif !important;
-    letter-spacing: 0.05em !important;
-    word-spacing: 0.1em !important;
-    line-height: 1.7 !important;
+    letter-spacing: 0.03em !important;
   }
 
   /* Redukcja animacji dla osób wrażliwych na ruch błędnikowy */
+  html.reduced-motion *,
+  html.reduced-motion *::before,
+  html.reduced-motion *::after,
   .reduced-motion *,
   .reduced-motion *::before,
   .reduced-motion *::after {
