@@ -234,6 +234,8 @@ export const HomePage: React.FC<Props> = ({
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/90 border border-blue-200 text-blue-800 text-xs font-bold tracking-wide mb-3 shadow-2xs">
               <Smartphone className="w-3.5 h-3.5 text-blue-700 shrink-0" />
               <span>{t('showcaseBadge')}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse ml-1" />
+              <span className="text-emerald-700 font-bold">LIVE</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900 leading-tight">
               {t('showcaseTitle')}

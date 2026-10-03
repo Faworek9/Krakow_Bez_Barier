@@ -78,7 +78,7 @@ export const ReportCorrectionModal: React.FC<Props> = ({
     >
       <div 
         ref={modalRef}
-        className="bg-white rounded-2xl max-w-lg w-full shadow-2xl border-0 overflow-hidden my-8"
+        className="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden my-8"
       >
         <div className="bg-blue-700 text-white p-5 flex items-center justify-between">
           <div>

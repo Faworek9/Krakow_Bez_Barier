@@ -101,7 +101,7 @@ export const BusinessPlaceModal: React.FC<Props> = ({
       aria-labelledby="business-modal-title"
       className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto"
     >
-      <div className="bg-white rounded-2xl max-w-xl w-full shadow-2xl border-0 overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-2xl max-w-xl w-full shadow-2xl border border-slate-200 overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
         {/* Belka Górna */}
         <div className="bg-gradient-to-r from-amber-600 to-amber-800 text-white p-6 relative">
           <button

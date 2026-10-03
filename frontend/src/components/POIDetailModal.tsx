@@ -54,7 +54,7 @@ export const POIDetailModal: React.FC<Props> = ({ poi, onClose, onOpenReport }) 
       <div 
         ref={modalRef}
         tabIndex={-1}
-        className="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border-0 overflow-hidden my-8 focus:outline-hidden"
+        className="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-slate-200 overflow-hidden my-8 focus:outline-hidden"
       >
         {/* Pasek nagłówkowy (JASNY MOTYW) */}
         <div className="bg-gradient-to-r from-blue-50/95 via-sky-50 to-indigo-50/80 border-b border-blue-100 p-6 relative">

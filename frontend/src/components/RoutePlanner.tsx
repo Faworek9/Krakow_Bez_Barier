@@ -503,88 +503,58 @@ export const RoutePlanner: React.FC<Props> = ({ preferences, availablePois }) =>
             </div>
 
             {/* Kolumna Krok po kroku (Nawigacja tekstowa WCAG) */}
-            <div className="lg:col-span-5 bg-white rounded-2xl border border-slate-200 shadow-xs flex flex-col lg:max-h-[500px] overflow-hidden">
-              {/* Stały nagłówek - nie scrolluje się, brak kolizji z krokami */}
-              <div className="p-4 sm:p-5 pb-3 border-b border-slate-100 bg-white z-20 flex items-center justify-between shrink-0">
-                <h4 className="text-sm font-bold text-slate-800 flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 text-blue-600" aria-hidden="true" />
-                  {t('routeStepsWcag')}
-                </h4>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider bg-slate-100 px-2 py-0.5 rounded-full">
-                  {routeData.segments.length} {language === 'en' ? 'steps' : 'etapów'}
-                </span>
-              </div>
-
-              {/* Kontener z gradientami zanikania u góry i u dołu */}
-              <div className="relative flex-1 min-h-0 overflow-hidden">
-                {/* Górny gradient zanikania */}
-                <div className="pointer-events-none absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-white via-white/80 to-transparent z-10" />
-
-                {/* Przewijana lista kroków */}
-                <div className="h-full max-h-[420px] overflow-y-auto px-5 pt-3 pb-6 scroll-smooth">
-                  <ol className="relative border-l-2 border-blue-400 ml-3.5 space-y-4 text-xs pb-3">
-                    {routeData.segments.map((seg) => {
-                      const isSelected = activeStepNumber === seg.step_number;
-                      return (
-                        <li 
-                          key={seg.step_number} 
-                          className="ml-4 cursor-pointer"
-                          onClick={() => setActiveStepNumber(isSelected ? null : seg.step_number)}
-                        >
-                          <div className={`absolute -left-[9px] mt-1 w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold transition-all shadow-xs ${
-                            isSelected ? 'bg-blue-800 text-white ring-4 ring-blue-300' : 'bg-blue-600 text-white'
-                          }`}>
-                            {seg.step_number}
-                          </div>
-                          <div className={`p-3 rounded-xl border transition-all ${
-                            isSelected 
-                              ? 'bg-blue-50/90 border-blue-400 ring-2 ring-blue-500/20 shadow-xs' 
-                              : 'bg-slate-50 border-slate-200/80 hover:bg-slate-100/80 hover:border-slate-300'
-                          }`}>
-                            <p className="font-semibold text-slate-900 mb-1 leading-snug">{seg.instruction}</p>
-                            <div className="flex flex-wrap gap-1.5 text-[11px] text-slate-600 mt-2">
-                              <span className="bg-white px-2 py-0.5 rounded-md border border-slate-200">
-                                Długość: <strong>{seg.distance_meters} m</strong>
-                              </span>
-                              <span className="bg-white px-2 py-0.5 rounded-md border border-slate-200 capitalize">
-                                Nawierzchnia: <strong>{seg.surface_type.replace('_', ' ')}</strong>
-                              </span>
-                              <span className="bg-white px-2 py-0.5 rounded-md border border-slate-200">
-                                Próg: <strong>{seg.curb_height_cm} cm</strong>
-                              </span>
-                              {seg.has_incline && (
-                                <span className="bg-amber-100 text-amber-900 px-2 py-0.5 rounded-md font-bold">
-                                  Nachylenie: {seg.incline_percent}%
-                                </span>
-                              )}
-                            </div>
-                            {seg.warning && (
-                              <div className="mt-2 text-rose-800 text-[11px] font-medium bg-rose-50 p-2 rounded-lg border border-rose-200 flex items-start gap-1.5">
-                                <span className="shrink-0">⚠️</span>
-                                <span>{seg.warning}</span>
-                              </div>
-                            )}
-                          </div>
-                        </li>
-                      );
-                    })}
-
-                    {/* Przedłużenie linii do samego dołu - Cel trasy */}
-                    <li className="ml-4 pt-1">
-                      <div className="absolute -left-[9px] w-4 h-4 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-bold shadow-xs">
-                        ✓
+            <div className="lg:col-span-5 bg-white rounded-xl border border-slate-200 p-5 shadow-xs lg:max-h-[480px] lg:overflow-y-auto">
+              <h4 className="text-sm font-bold text-slate-800 mb-3 flex items-center gap-1.5 sticky top-0 bg-white py-1 z-10 border-b border-slate-100">
+                <MapPin className="w-4 h-4 text-blue-600" aria-hidden="true" />
+                {t('routeStepsWcag')}
+              </h4>
+              <ol className="relative border-l-2 border-blue-200 ml-3 space-y-3 text-xs">
+                {routeData.segments.map((seg) => {
+                  const isSelected = activeStepNumber === seg.step_number;
+                  return (
+                    <li 
+                      key={seg.step_number} 
+                      className="ml-4 cursor-pointer"
+                      onClick={() => setActiveStepNumber(isSelected ? null : seg.step_number)}
+                    >
+                      <div className={`absolute -left-2 mt-1 w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold transition-all ${
+                        isSelected ? 'bg-blue-800 text-white ring-4 ring-blue-300' : 'bg-blue-600 text-white'
+                      }`}>
+                        {seg.step_number}
                       </div>
-                      <div className="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 flex items-center gap-1.5">
-                        <span>🏁</span>
-                        <span>{language === 'en' ? 'Destination reached' : 'Cel trasy osiągnięty'}</span>
+                      <div className={`p-3 rounded-lg border transition-all ${
+                        isSelected 
+                          ? 'bg-blue-50/80 border-blue-400 ring-2 ring-blue-500/20 shadow-xs' 
+                          : 'bg-slate-50 border-slate-100 hover:bg-slate-100/80'
+                      }`}>
+                        <p className="font-semibold text-slate-900 mb-1">{seg.instruction}</p>
+                        <div className="flex flex-wrap gap-1.5 text-[11px] text-slate-600">
+                          <span className="bg-white px-2 py-0.5 rounded border border-slate-200">
+                            Długość: <strong>{seg.distance_meters} m</strong>
+                          </span>
+                          <span className="bg-white px-2 py-0.5 rounded border border-slate-200 capitalize">
+                            Nawierzchnia: <strong>{seg.surface_type.replace('_', ' ')}</strong>
+                          </span>
+                          <span className="bg-white px-2 py-0.5 rounded border border-slate-200">
+                            Próg / Krawężnik: <strong>{seg.curb_height_cm} cm</strong>
+                          </span>
+                          {seg.has_incline && (
+                            <span className="bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">
+                              Nachylenie: {seg.incline_percent}%
+                            </span>
+                          )}
+                        </div>
+                        {seg.warning && (
+                          <div className="mt-2 text-rose-800 text-[11px] font-medium bg-rose-50 p-1.5 rounded border border-rose-200 flex items-start gap-1">
+                            <span>⚠️</span>
+                            <span>{seg.warning}</span>
+                          </div>
+                        )}
                       </div>
                     </li>
-                  </ol>
-                </div>
-
-                {/* Dolny gradient zanikania */}
-                <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white via-white/80 to-transparent z-10" />
-              </div>
+                  );
+                })}
+              </ol>
             </div>
           </div>
         </div>

@@ -568,6 +568,9 @@ export const App: React.FC = () => {
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <span className="font-black text-slate-900 text-sm">Kraków Bez Barier (AccessKraków)</span>
+                <span className="text-[10px] bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded-full">
+                  Projekt Konkursowy 2026
+                </span>
               </div>
               <p className="text-[11px] text-slate-500 max-w-xl">
                 Otwarta platforma wspierająca niezależne poruszanie się po Krakowie. Realizacja zasad Privacy-by-Design i standardu WCAG 2.2 AA.
