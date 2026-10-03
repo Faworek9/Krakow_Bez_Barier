@@ -87,10 +87,10 @@ chmod +x deployment/gcp-cloud-run-deploy.sh
 
 ---
 
-## 📁 Dokumentacja Konkursowa
+## 📁 Dokumentacja Konkursowa i Koncepcja Projektu
 
-W katalogu `docs/` znajdują się materiały przygotowane pod wymogi formalne oceny:
-- [`docs/PREZENTACJA_10_SLAJDOW.md`](docs/PREZENTACJA_10_SLAJDOW.md) – Kompletna treść prezentacji (maks. 10 slajdów zgodnie z regulaminem).
+- [📖 **`IDEA_I_KONCEPCJA_PROJEKTU.md`**](IDEA_I_KONCEPCJA_PROJEKTU.md) – **Główny manifest i koncepcja**: idea przewodnia, parametryzacja zamiast etykiet, grupy docelowe, model docelowy i piramida wiarygodności danych.
+- [`docs/PREZENTACJA_10_SLAJDOW.md`](docs/PREZENTACJA_10_SLAJDOW.md) – Kompletna treść prezentacji konkursowej (maks. 10 slajdów zgodnie z regulaminem).
 - [`docs/SCENARIUSZ_WIDEO_3MIN.md`](docs/SCENARIUSZ_WIDEO_3MIN.md) – Precyzyjny scenariusz nagrania wideo demonstracyjnego (poniżej 3 minut).
 - [`docs/MODEL_BIZNESOWY_I_SKALOWANIE.md`](docs/MODEL_BIZNESOWY_I_SKALOWANIE.md) – Model przychodowy B2B/B2G, RODO, koszty utrzymania na GCP i procedura skalowania na kolejne miasta.
 
