@@ -1,13 +1,14 @@
 import React from 'react';
-import { Eye, PlusCircle, Compass, MapPin, Home, Settings, Type, LogIn, LogOut, User as UserIcon, Building2, MessageSquare } from 'lucide-react';
+import { PlusCircle, Compass, MapPin, Home, Settings, LogIn, LogOut, User as UserIcon, Building2, MessageSquare } from 'lucide-react';
 import { NavigationTab } from '../types';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 
 interface Props {
-  highContrast: boolean;
-  onToggleHighContrast: () => void;
-  textSize: 'normal' | 'large' | 'xlarge';
-  onCycleTextSize: () => void;
+  highContrast?: boolean;
+  onToggleHighContrast?: () => void;
+  textSize?: 'normal' | 'large' | 'xlarge';
+  onCycleTextSize?: () => void;
   activeTab: NavigationTab;
   onSelectTab: (tab: NavigationTab) => void;
   onOpenReportModal: () => void;
@@ -17,10 +18,6 @@ interface Props {
 }
 
 export const Navbar: React.FC<Props> = ({
-  highContrast,
-  onToggleHighContrast,
-  textSize,
-  onCycleTextSize,
   activeTab,
   onSelectTab,
   onOpenReportModal,
@@ -29,11 +26,7 @@ export const Navbar: React.FC<Props> = ({
   onOpenUserReportsModal
 }) => {
   const { user, isLoggedIn, isBusiness, logout } = useAuth();
-  const getTextSizeLabel = () => {
-    if (textSize === 'xlarge') return 'A++';
-    if (textSize === 'large') return 'A+';
-    return 'A';
-  };
+  const { t } = useLanguage();
 
   return (
     <header className="bg-white/95 backdrop-blur-md border-b border-slate-200/90 sticky top-0 z-40 shadow-xs">
@@ -42,7 +35,7 @@ export const Navbar: React.FC<Props> = ({
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-blue-700 focus:text-white focus:px-4 focus:py-2 focus:rounded-md focus:z-50 focus:shadow-lg font-bold"
       >
-        Przejdź do głównej zawartości
+        {t('skipLink')}
       </a>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,7 +44,7 @@ export const Navbar: React.FC<Props> = ({
           <button
             type="button"
             onClick={() => onSelectTab('home')}
-            aria-label="Kraków Bez Barier - Przejdź do strony głównej"
+            aria-label={`${t('appName')} - ${t('navHome')}`}
             className="flex items-center gap-3 text-left group focus:outline-hidden"
           >
             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-blue-700 to-blue-900 text-white flex items-center justify-center font-black text-lg shadow-md shadow-blue-700/20 group-hover:scale-105 transition-transform shrink-0">
@@ -60,10 +53,10 @@ export const Navbar: React.FC<Props> = ({
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-black text-base sm:text-lg text-slate-900 tracking-tight group-hover:text-blue-700 transition-colors">
-                  Kraków Bez Barier
+                  {t('appName')}
                 </span>
                 <span className="hidden sm:inline-block text-[10px] bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
-                  AccessKraków
+                  {t('appBadge')}
                 </span>
               </div>
             </div>
@@ -81,7 +74,7 @@ export const Navbar: React.FC<Props> = ({
               }`}
             >
               <Home className="w-4 h-4" aria-hidden="true" />
-              Strona Główna
+              {t('navHome')}
             </button>
 
             <button
@@ -94,7 +87,7 @@ export const Navbar: React.FC<Props> = ({
               }`}
             >
               <MapPin className="w-4 h-4" aria-hidden="true" />
-              Miejsca i Obiekty (POI)
+              {t('navPlaces')}
             </button>
 
             <button
@@ -107,47 +100,18 @@ export const Navbar: React.FC<Props> = ({
               }`}
             >
               <Compass className="w-4 h-4" aria-hidden="true" />
-              Dostępne Trasy Piesze
+              {t('navRoutes')}
             </button>
           </nav>
 
           {/* Przyciski Dostępności Cyfrowej i Akcji */}
           <div className="flex items-center gap-1.5 sm:gap-2">
-            {/* Przełącznik Rozmiaru Czcionki (WCAG) */}
-            <button
-              type="button"
-              onClick={onCycleTextSize}
-              aria-label={`Zmień rozmiar tekstu (aktualny: ${textSize})`}
-              title="Zmień rozmiar tekstu (WCAG)"
-              className="inline-flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-colors"
-            >
-              <Type className="w-3.5 h-3.5 text-slate-500" aria-hidden="true" />
-              <span>{getTextSizeLabel()}</span>
-            </button>
-
-            {/* Przełącznik Wysokiego Kontrastu (WCAG) */}
-            <button
-              type="button"
-              onClick={onToggleHighContrast}
-              aria-pressed={highContrast}
-              aria-label="Przełącz tryb wysokiego kontrastu (WCAG)"
-              title="Wysoki kontrast (WCAG AAA)"
-              className={`inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold border transition-all ${
-                highContrast
-                  ? 'bg-yellow-400 text-black border-black ring-2 ring-black font-black'
-                  : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
-              }`}
-            >
-              <Eye className="w-4 h-4" aria-hidden="true" />
-              <span className="hidden sm:inline">Kontrast</span>
-            </button>
-
             {/* Skrót do Ustawień na tabletach/komputerach */}
             <button
               type="button"
               onClick={() => onSelectTab('settings')}
-              aria-label="Otwórz ustawienia i opcje dostępności"
-              title="Ustawienia i opcje"
+              aria-label={t('navSettings')}
+              title={t('navSettings')}
               className={`p-2 rounded-xl border transition-colors ${
                 activeTab === 'settings'
                   ? 'bg-blue-50 border-blue-600 text-blue-700'
@@ -164,7 +128,7 @@ export const Navbar: React.FC<Props> = ({
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-700 hover:bg-blue-800 text-white shadow-xs transition-colors shrink-0"
             >
               <PlusCircle className="w-4 h-4" aria-hidden="true" />
-              <span className="hidden sm:inline">Zgłoś barierę</span>
+              <span className="hidden sm:inline">{t('navReport')}</span>
             </button>
 
             {/* SEKCJA UWIERZYTELNIANIA (Użytkownicy i Firmy) */}
@@ -235,7 +199,7 @@ export const Navbar: React.FC<Props> = ({
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white transition-colors shadow-xs"
                 >
                   <LogIn className="w-3.5 h-3.5" />
-                  <span>Zaloguj</span>
+                  <span>{t('navLogin')}</span>
                 </button>
               </div>
             )}
@@ -254,7 +218,7 @@ export const Navbar: React.FC<Props> = ({
             }`}
           >
             <Home className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Główna</span>
+            <span>{t('navHome')}</span>
           </button>
 
           <button
@@ -267,7 +231,7 @@ export const Navbar: React.FC<Props> = ({
             }`}
           >
             <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Miejsca</span>
+            <span>{t('navPlaces')}</span>
           </button>
 
           <button
@@ -280,7 +244,7 @@ export const Navbar: React.FC<Props> = ({
             }`}
           >
             <Compass className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Trasy</span>
+            <span>{t('navRoutes')}</span>
           </button>
 
           <button
@@ -293,7 +257,7 @@ export const Navbar: React.FC<Props> = ({
             }`}
           >
             <Settings className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Ustawienia</span>
+            <span>{t('navSettings')}</span>
           </button>
         </div>
       </div>

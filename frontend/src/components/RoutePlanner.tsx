@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { UserPreferences, RouteResponse } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 import { RouteMapView } from './RouteMapView';
 import { 
   Navigation, 
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export const RoutePlanner: React.FC<Props> = ({ preferences }) => {
+  const { language, t } = useLanguage();
   const [selectedRouteId, setSelectedRouteId] = useState<string>('dworzec-rynek');
   const [routeData, setRouteData] = useState<RouteResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -50,10 +52,10 @@ export const RoutePlanner: React.FC<Props> = ({ preferences }) => {
       <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs">
         <h2 id="route-planner-heading" className="text-base font-bold text-slate-900 mb-1 flex items-center gap-2">
           <Navigation className="w-5 h-5 text-blue-700" aria-hidden="true" />
-          Planer Dostępnych Tras Pieszych w Krakowie
+          {t('routePlannerTitle')}
         </h2>
         <p className="text-xs text-slate-500 mb-4">
-          Wybierz trasę, aby sprawdzić analizę nawierzchni, krawężników, schodów oraz profilu nachylenia terenu.
+          {t('routePlannerDesc')}
         </p>
 
         {/* Selektor Tras Demonstracyjnych */}
@@ -70,7 +72,7 @@ export const RoutePlanner: React.FC<Props> = ({ preferences }) => {
                 : 'border-slate-200 text-slate-700 hover:bg-slate-50'
             }`}
           >
-            🚆 Dworzec Główny PKP → Rynek Główny (850 m)
+            🚆 {t('route1Title')} (850 m)
           </button>
           <button
             type="button"
@@ -84,7 +86,7 @@ export const RoutePlanner: React.FC<Props> = ({ preferences }) => {
                 : 'border-slate-200 text-slate-700 hover:bg-slate-50'
             }`}
           >
-            🏰 Rynek Główny → Zamek Królewski Wawel (950 m)
+            🏰 {t('route2Title')} (950 m)
           </button>
         </div>
       </div>
@@ -92,7 +94,9 @@ export const RoutePlanner: React.FC<Props> = ({ preferences }) => {
       {loading && (
         <div className="bg-white rounded-xl border border-slate-200 p-8 text-center text-slate-500">
           <div className="animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-2"></div>
-          <p className="text-xs font-medium">Analizowanie parametrów architektonicznych trasy...</p>
+          <p className="text-xs font-medium">
+            {language === 'en' ? 'Analyzing architectural route parameters...' : 'Analizowanie parametrów architektonicznych trasy...'}
+          </p>
         </div>
       )}
 

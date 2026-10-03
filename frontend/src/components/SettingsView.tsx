@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AppSettings, UserPreferences, NavigationTab } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 import { 
   Eye, 
   Sliders, 
@@ -17,7 +18,8 @@ import {
   Luggage,
   Baby,
   UserCheck,
-  ArrowLeft
+  ArrowLeft,
+  Globe
 } from 'lucide-react';
 
 interface Props {
@@ -41,30 +43,34 @@ export const SettingsView: React.FC<Props> = ({
   onShowToast,
   onNavigateToTab
 }) => {
+  const { language, setLanguage, t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<'wcag' | 'mobility' | 'map' | 'privacy'>('wcag');
 
   const testSpeech = () => {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(
-        'Kraków Bez Barier. Test syntezatora mowy. Wybrany profil: ' +
-        (preferences.preset_name === 'wheelchair' ? 'Osoba na wózku' :
-         preferences.preset_name === 'luggage' ? 'Turysta z walizką' :
-         preferences.preset_name === 'stroller' ? 'Wózek dziecięcy' : 'Senior') +
-        '. Dopuszczalny próg: ' + preferences.max_curb_cm + ' centymetra. Minimalna szerokość drzwi: ' +
-        preferences.min_door_width_cm + ' centymetrów.'
-      );
-      utterance.lang = 'pl-PL';
+      const profileName = 
+        preferences.preset_name === 'wheelchair' ? (language === 'en' ? 'Wheelchair user' : 'Osoba na wózku') :
+        preferences.preset_name === 'luggage' ? (language === 'en' ? 'Tourist with luggage' : 'Turysta z walizką') :
+        preferences.preset_name === 'stroller' ? (language === 'en' ? 'Family with stroller' : 'Wózek dziecięcy') : 
+        (language === 'en' ? 'Senior' : 'Senior');
+
+      const speechText = language === 'en'
+        ? `Access Krakow. Speech synthesizer test. Selected profile: ${profileName}. Maximum threshold: ${preferences.max_curb_cm} centimeters. Minimum door width: ${preferences.min_door_width_cm} centimeters.`
+        : `Kraków Bez Barier. Test syntezatora mowy. Wybrany profil: ${profileName}. Dopuszczalny próg: ${preferences.max_curb_cm} centymetra. Minimalna szerokość drzwi: ${preferences.min_door_width_cm} centymetrów.`;
+
+      const utterance = new SpeechSynthesisUtterance(speechText);
+      utterance.lang = language === 'en' ? 'en-US' : 'pl-PL';
       utterance.rate = 1.0;
       window.speechSynthesis.speak(utterance);
-      onShowToast('Odtwarzanie testowej podpowiedzi głosowej w języku polskim.');
+      onShowToast(t('speechToastPlaying'));
     } else {
-      onShowToast('Twoja przeglądarka nie obsługuje wbudowanego syntezatora mowy.');
+      onShowToast(t('speechToastUnsupported'));
     }
   };
 
   const handleSaveAll = () => {
-    onShowToast('Wszystkie preferencje i opcje zostały zapisane w pamięci przeglądarki (localStorage).');
+    onShowToast(t('settingsSavedToast'));
   };
 
   return (
@@ -78,14 +84,14 @@ export const SettingsView: React.FC<Props> = ({
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-800 mb-2 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Powrót do strony głównej</span>
+            <span>{t('settingsBtnBack')}</span>
           </button>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight flex items-center gap-2.5">
             <Sliders className="w-7 h-7 text-blue-700" />
-            Ustawienia i Opcje Dostępności
+            {t('settingsTitle')}
           </h1>
           <p className="text-xs text-slate-500 mt-1 max-w-xl">
-            Skonfiguruj ułatwienia cyfrowe (WCAG 2.2 AA), fizyczne wymiary barier architektonicznych oraz sposób wyświetlania mapy.
+            {t('settingsDesc')}
           </p>
         </div>
 
@@ -96,7 +102,7 @@ export const SettingsView: React.FC<Props> = ({
             className="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-700 hover:bg-blue-800 text-white rounded-xl text-xs font-bold shadow-xs transition-all"
           >
             <Save className="w-4 h-4" />
-            <span>Zapisz ustawienia</span>
+            <span>{t('settingsBtnSave')}</span>
           </button>
         </div>
       </div>
@@ -115,7 +121,7 @@ export const SettingsView: React.FC<Props> = ({
           }`}
         >
           <Eye className="w-4 h-4" />
-          <span>Dostępność Cyfrowa (WCAG 2.2)</span>
+          <span>{t('settingsTabWcag')}</span>
         </button>
 
         <button
@@ -130,7 +136,7 @@ export const SettingsView: React.FC<Props> = ({
           }`}
         >
           <Accessibility className="w-4 h-4" />
-          <span>Parametry Mobilności i Wymiary</span>
+          <span>{t('settingsTabMobility')}</span>
         </button>
 
         <button
@@ -145,7 +151,7 @@ export const SettingsView: React.FC<Props> = ({
           }`}
         >
           <Layers className="w-4 h-4" />
-          <span>Widok Mapy i Preferencje</span>
+          <span>{t('settingsTabMap')}</span>
         </button>
 
         <button
@@ -160,7 +166,7 @@ export const SettingsView: React.FC<Props> = ({
           }`}
         >
           <ShieldCheck className="w-4 h-4" />
-          <span>Prywatność i Pamięć (RODO)</span>
+          <span>{t('settingsTabPrivacy')}</span>
         </button>
       </div>
 
@@ -169,20 +175,64 @@ export const SettingsView: React.FC<Props> = ({
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-6">
           <div>
             <h2 className="text-base font-bold text-slate-900 mb-1">
-              Dostępność Cyfrowa & Wygląd Interfejsu (WCAG 2.2 AA)
+              {t('wcagSectionTitle')}
             </h2>
             <p className="text-xs text-slate-500">
-              Dostosuj kontrast, rozmiar tekstu oraz asystenta dźwiękowego do swoich indywidualnych potrzeb percepcyjnych.
+              {t('wcagSectionDesc')}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {/* Wybór Języka Interfejsu (Language Selector) */}
+            <div className="p-4 rounded-2xl border border-blue-200 bg-blue-50/40 col-span-1 md:col-span-2 space-y-2">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="font-bold text-xs text-slate-900 flex items-center gap-1.5 mb-0.5">
+                    <Globe className="w-4 h-4 text-blue-700" />
+                    {t('languageSelectTitle')}
+                  </span>
+                  <p className="text-[11px] text-slate-500">
+                    {t('languageSelectDesc')}
+                  </p>
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
+                  {language.toUpperCase()}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 pt-1 max-w-sm">
+                <button
+                  type="button"
+                  onClick={() => setLanguage('pl')}
+                  className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-2 ${
+                    language === 'pl'
+                      ? 'bg-blue-700 text-white border-blue-700 shadow-sm'
+                      : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  <span>🇵🇱</span>
+                  <span>{t('langPolish')}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLanguage('en')}
+                  className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-2 ${
+                    language === 'en'
+                      ? 'bg-blue-700 text-white border-blue-700 shadow-sm'
+                      : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  <span>🇬🇧</span>
+                  <span>{t('langEnglish')}</span>
+                </button>
+              </div>
+            </div>
+
             {/* Tryb wysokiego kontrastu */}
             <div className="p-4 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-start justify-between gap-4">
               <div>
-                <span className="font-bold text-xs text-slate-900 block mb-0.5">Tryb wysokiego kontrastu</span>
+                <span className="font-bold text-xs text-slate-900 block mb-0.5">{t('highContrastLabel')}</span>
                 <p className="text-[11px] text-slate-500">
-                  Zwiększa kontrast krawędzi i elementów do współczynnika &gt;7:1 (żółto-czarne akcenty).
+                  {t('highContrastDesc')}
                 </p>
               </div>
               <button
@@ -205,9 +255,9 @@ export const SettingsView: React.FC<Props> = ({
             {/* Rozmiar tekstu */}
             <div className="p-4 rounded-2xl border border-slate-200 bg-slate-50/50 space-y-2">
               <div>
-                <span className="font-bold text-xs text-slate-900 block mb-0.5">Wielkość czcionki (Skalowanie)</span>
+                <span className="font-bold text-xs text-slate-900 block mb-0.5">{t('textSizeLabel')}</span>
                 <p className="text-[11px] text-slate-500">
-                  Ułatwia czytanie bez utraty struktury i czytelności strony.
+                  {t('textSizeDesc')}
                 </p>
               </div>
               <div className="flex items-center gap-2 pt-1">
@@ -220,7 +270,7 @@ export const SettingsView: React.FC<Props> = ({
                       : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-100'
                   }`}
                 >
-                  Standardowa (100%)
+                  {t('textSizeStandard')}
                 </button>
                 <button
                   type="button"
@@ -231,7 +281,7 @@ export const SettingsView: React.FC<Props> = ({
                       : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-100'
                   }`}
                 >
-                  Powiększona (115%)
+                  {t('textSizeLarge')}
                 </button>
                 <button
                   type="button"
@@ -242,7 +292,7 @@ export const SettingsView: React.FC<Props> = ({
                       : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-100'
                   }`}
                 >
-                  Duża (130%)
+                  {t('textSizeXLarge')}
                 </button>
               </div>
             </div>
@@ -250,9 +300,9 @@ export const SettingsView: React.FC<Props> = ({
             {/* Krój ułatwiający czytanie (Dysleksja) */}
             <div className="p-4 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-start justify-between gap-4">
               <div>
-                <span className="font-bold text-xs text-slate-900 block mb-0.5">Krój pisma przyjazny dysleksji</span>
+                <span className="font-bold text-xs text-slate-900 block mb-0.5">{t('dyslexicFontLabel')}</span>
                 <p className="text-[11px] text-slate-500">
-                  Zwiększa odstępy między literami i słowami oraz stosuje czytelniejszy kształt glifów.
+                  {t('dyslexicFontDesc')}
                 </p>
               </div>
               <button
@@ -275,9 +325,9 @@ export const SettingsView: React.FC<Props> = ({
             {/* Redukcja animacji */}
             <div className="p-4 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-start justify-between gap-4">
               <div>
-                <span className="font-bold text-xs text-slate-900 block mb-0.5">Ograniczenie animacji (Reduced Motion)</span>
+                <span className="font-bold text-xs text-slate-900 block mb-0.5">{t('reducedMotionLabel')}</span>
                 <p className="text-[11px] text-slate-500">
-                  Wyłącza płynne przejścia i animacje na korzyść natychmiastowych zmian (dla osób wrażliwych).
+                  {t('reducedMotionDesc')}
                 </p>
               </div>
               <button
@@ -305,9 +355,9 @@ export const SettingsView: React.FC<Props> = ({
                 <Volume2 className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-xs text-blue-950">Wbudowany lektor mowy (Web Speech API)</h3>
+                <h3 className="font-bold text-xs text-blue-950">{t('soundAssistantLabel')}</h3>
                 <p className="text-[11px] text-blue-800">
-                  Czytanie na głos kluczowych parametrów architektonicznych i ostrzeżeń o barierach w języku polskim.
+                  {t('soundAssistantDesc')}
                 </p>
               </div>
             </div>
@@ -317,7 +367,7 @@ export const SettingsView: React.FC<Props> = ({
               className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-xl text-xs font-bold transition-all shadow-xs shrink-0"
             >
               <Volume2 className="w-4 h-4" />
-              <span>Przetestuj lektora</span>
+              <span>{t('testSpeechBtn')}</span>
             </button>
           </div>
 

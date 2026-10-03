@@ -1,5 +1,6 @@
 import React from 'react';
 import { UserPreferences } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 import { Accessibility, Luggage, Baby, UserCheck, Sliders, CheckSquare, Square } from 'lucide-react';
 
 interface Props {
@@ -9,8 +10,8 @@ interface Props {
 }
 
 export const AccessibilityFilters: React.FC<Props> = ({ preferences, onChange, onOpenSettings }) => {
+  const { language, t } = useLanguage();
   const [showAdvanced, setShowAdvanced] = React.useState(false);
-
 
   const applyPreset = (presetKey: string) => {
     switch (presetKey) {
@@ -79,10 +80,10 @@ export const AccessibilityFilters: React.FC<Props> = ({ preferences, onChange, o
       <div className="flex items-center justify-between mb-3">
         <div>
           <h2 className="text-sm font-bold uppercase tracking-wider text-slate-700">
-            Dopasuj do swoich możliwości ruchowych
+            {t('filterMobilityHeader')}
           </h2>
           <p className="text-xs text-slate-500">
-            Prywatność przede wszystkim: nie pytamy o diagnozy, lecz o konkretne wymiary i nawierzchnie.
+            {t('filterMobilitySub')}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -92,7 +93,7 @@ export const AccessibilityFilters: React.FC<Props> = ({ preferences, onChange, o
               onClick={onOpenSettings}
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg border border-slate-200 transition-colors"
             >
-              <span>⚙️ Wszystkie opcje</span>
+              <span>{t('filterAllOptions')}</span>
             </button>
           )}
           <button
@@ -102,7 +103,9 @@ export const AccessibilityFilters: React.FC<Props> = ({ preferences, onChange, o
             aria-expanded={showAdvanced}
           >
             <Sliders className="w-3.5 h-3.5" aria-hidden="true" />
-            {showAdvanced ? 'Zwiń szczegóły' : 'Dostosuj wymiary'}
+            {showAdvanced 
+              ? (language === 'en' ? 'Collapse details' : 'Zwiń szczegóły')
+              : (language === 'en' ? 'Adjust dimensions' : 'Dostosuj wymiary')}
           </button>
         </div>
       </div>
@@ -122,8 +125,8 @@ export const AccessibilityFilters: React.FC<Props> = ({ preferences, onChange, o
         >
           <Accessibility className="w-5 h-5 text-blue-600 shrink-0" aria-hidden="true" />
           <div>
-            <div className="font-semibold">Osoba na wózku</div>
-            <div className="text-[11px] text-slate-500">Szerokość &gt;85cm, winda, WC</div>
+            <div className="font-semibold">{t('profileWheelchairTitle')}</div>
+            <div className="text-[11px] text-slate-500">{language === 'en' ? 'Width >85cm, lift, WC' : 'Szerokość >85cm, winda, WC'}</div>
           </div>
         </button>
 
@@ -140,8 +143,8 @@ export const AccessibilityFilters: React.FC<Props> = ({ preferences, onChange, o
         >
           <Luggage className="w-5 h-5 text-amber-600 shrink-0" aria-hidden="true" />
           <div>
-            <div className="font-semibold">Turysta z walizką</div>
-            <div className="text-[11px] text-slate-500">Bez kocich łbów, pochylnie</div>
+            <div className="font-semibold">{t('profileLuggageTitle')}</div>
+            <div className="text-[11px] text-slate-500">{language === 'en' ? 'No cobbles, ramps' : 'Bez kocich łbów, pochylnie'}</div>
           </div>
         </button>
 
@@ -158,8 +161,8 @@ export const AccessibilityFilters: React.FC<Props> = ({ preferences, onChange, o
         >
           <Baby className="w-5 h-5 text-purple-600 shrink-0" aria-hidden="true" />
           <div>
-            <div className="font-semibold">Wózek dziecięcy</div>
-            <div className="text-[11px] text-slate-500">Płaskie wjazdy, ławeczki</div>
+            <div className="font-semibold">{t('profileStrollerTitle')}</div>
+            <div className="text-[11px] text-slate-500">{language === 'en' ? 'Flat curbs, benches' : 'Płaskie wjazdy, ławeczki'}</div>
           </div>
         </button>
 
@@ -176,8 +179,8 @@ export const AccessibilityFilters: React.FC<Props> = ({ preferences, onChange, o
         >
           <UserCheck className="w-5 h-5 text-emerald-600 shrink-0" aria-hidden="true" />
           <div>
-            <div className="font-semibold">Senior / Asysta</div>
-            <div className="text-[11px] text-slate-500">Miejsca odpoczynku, poręcze</div>
+            <div className="font-semibold">{t('profileSeniorTitle')}</div>
+            <div className="text-[11px] text-slate-500">{language === 'en' ? 'Rest spots, handrails' : 'Miejsca odpoczynku, poręcze'}</div>
           </div>
         </button>
       </div>

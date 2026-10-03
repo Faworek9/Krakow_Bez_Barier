@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { UserPreferences, EvaluatedPOI, POI, NavigationTab, AppSettings } from './types';
+import { useLanguage } from './context/LanguageContext';
 import { SEED_POIS, evaluateAllLocally, evaluatePoiLocally } from './data/seedPlaces';
 import { Navbar } from './components/Navbar';
 import { HomePage } from './components/HomePage';
@@ -39,6 +40,7 @@ const DEFAULT_SETTINGS: AppSettings = {
 };
 
 export const App: React.FC = () => {
+  const { language, t } = useLanguage();
   // Wczytywanie preferencji użytkownika z localStorage
   const [preferences, setPreferences] = useState<UserPreferences>(() => {
     try {
@@ -293,10 +295,10 @@ export const App: React.FC = () => {
               <div>
                 <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
                   <Map className="w-5 h-5 text-blue-700" />
-                  Katalog Miejsc i Obiektów w Krakowie
+                  {t('catalogTitle')}
                 </h1>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Sprawdź parametry wejść, progów, toalet i nawierzchni według Twojego profilu.
+                  {t('catalogDesc')}
                 </p>
               </div>
               <div className="flex items-center gap-2">
@@ -305,7 +307,7 @@ export const App: React.FC = () => {
                   onClick={() => setActiveTab('settings')}
                   className="px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs font-bold text-slate-700 transition-colors"
                 >
-                  ⚙️ Opcje parametrów
+                  {t('filterParamOptionsBtn')}
                 </button>
               </div>
             </div>
@@ -325,15 +327,15 @@ export const App: React.FC = () => {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Szukaj obiektu lub ulicy (np. Sukiennice, Wawel, Dworzec, Floriańska, Cricoteka)..."
-                  aria-label="Wyszukaj obiekt lub adres w Krakowie"
+                  placeholder={t('catalogSearchPlaceholder')}
+                  aria-label={language === 'en' ? 'Search place or address in Krakow' : 'Wyszukaj obiekt lub adres w Krakowie'}
                   className="w-full pl-9 pr-8 py-2 border border-slate-200 rounded-xl text-xs outline-none focus:outline-none focus:ring-0 search-input-no-outline"
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery('')}
-                    aria-label="Wyczyść wyszukiwanie"
+                    aria-label={language === 'en' ? 'Clear search' : 'Wyczyść wyszukiwanie'}
                     className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                   >
                     <X className="w-3.5 h-3.5" />
@@ -346,29 +348,29 @@ export const App: React.FC = () => {
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  aria-label="Filtruj według kategorii"
+                  aria-label={language === 'en' ? 'Filter by category' : 'Filtruj według kategorii'}
                   className="px-3 py-2 border border-slate-200 rounded-xl text-xs bg-white text-slate-700 font-medium"
                 >
-                  <option value="">Wszystkie kategorie</option>
-                  <option value="muzeum">Muzea</option>
-                  <option value="zabytek">Zabytki</option>
-                  <option value="urzad">Urzędy</option>
-                  <option value="dworzec">Dworce</option>
-                  <option value="kawiarnia">Kawiarnie</option>
-                  <option value="restauracja">Restauracje</option>
-                  <option value="park">Parki</option>
+                  <option value="">{t('allCategories')}</option>
+                  <option value="muzeum">{t('catMuseum')}</option>
+                  <option value="zabytek">{t('catMonument')}</option>
+                  <option value="urzad">{t('catOffice')}</option>
+                  <option value="dworzec">{t('catStation')}</option>
+                  <option value="kawiarnia">{t('catCafe')}</option>
+                  <option value="restauracja">{t('catRestaurant')}</option>
+                  <option value="park">{t('catPark')}</option>
                 </select>
 
                 <select
                   value={selectedDistrict}
                   onChange={(e) => setSelectedDistrict(e.target.value)}
-                  aria-label="Filtruj według dzielnicy"
+                  aria-label={language === 'en' ? 'Filter by district' : 'Filtruj według dzielnicy'}
                   className="px-3 py-2 border border-slate-200 rounded-xl text-xs bg-white text-slate-700 font-medium"
                 >
-                  <option value="">Cały Kraków</option>
-                  <option value="Stare Miasto">Stare Miasto</option>
-                  <option value="Kazimierz">Kazimierz</option>
-                  <option value="Podgórze">Podgórze</option>
+                  <option value="">{t('distAll')}</option>
+                  <option value="Stare Miasto">{t('distOldTown')}</option>
+                  <option value="Kazimierz">{t('distKazimierz')}</option>
+                  <option value="Podgórze">{t('distPodgorze')}</option>
                 </select>
 
                 {/* Przełącznik Widoku (WCAG: Alternatywa tekstowa mapy) */}
@@ -376,32 +378,32 @@ export const App: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setViewMode('both')}
-                    aria-label="Pokaż mapę i listę obok siebie"
+                    aria-label={language === 'en' ? 'Show map and list side by side' : 'Pokaż mapę i listę obok siebie'}
                     className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${
                       viewMode === 'both' ? 'bg-white shadow-xs text-blue-700' : 'text-slate-600'
                     }`}
                   >
-                    Oba
+                    {t('viewModeBoth')}
                   </button>
                   <button
                     type="button"
                     onClick={() => setViewMode('list')}
-                    aria-label="Pokaż tylko dostępną listę tekstową"
+                    aria-label={language === 'en' ? 'Show accessible text list only' : 'Pokaż tylko dostępną listę tekstową'}
                     className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${
                       viewMode === 'list' ? 'bg-white shadow-xs text-blue-700' : 'text-slate-600'
                     }`}
                   >
-                    Lista
+                    {t('viewModeList')}
                   </button>
                   <button
                     type="button"
                     onClick={() => setViewMode('map')}
-                    aria-label="Pokaż tylko mapę"
+                    aria-label={language === 'en' ? 'Show map only' : 'Pokaż tylko mapę'}
                     className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${
                       viewMode === 'map' ? 'bg-white shadow-xs text-blue-700' : 'text-slate-600'
                     }`}
                   >
-                    Mapa
+                    {t('viewModeMap')}
                   </button>
                 </div>
               </div>
@@ -409,7 +411,9 @@ export const App: React.FC = () => {
 
             {/* Informacja o liczbie wyników dla czytników ekranu */}
             <div className="sr-only" role="status" aria-live="polite">
-              Znaleziono {filteredItems.length} obiektów spełniających wybrane kryteria mobilności.
+              {language === 'en'
+                ? `Found ${filteredItems.length} places matching selected mobility criteria.`
+                : `Znaleziono ${filteredItems.length} obiektów spełniających wybrane kryteria mobilności.`}
             </div>
 
             {/* Siatka: Lista + Mapa */}
@@ -420,7 +424,7 @@ export const App: React.FC = () => {
                   {loading ? (
                     <div className="bg-white p-8 rounded-2xl border border-slate-200 text-center text-slate-500">
                       <div className="animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-2"></div>
-                      <p className="text-xs font-bold">Ładowanie i przeliczanie barier architektonicznych...</p>
+                      <p className="text-xs font-bold">{t('loadingCalculating')}</p>
                     </div>
                   ) : (
                     <POIList

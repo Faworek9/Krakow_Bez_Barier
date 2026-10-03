@@ -26,6 +26,7 @@ import {
   Ruler,
   ShieldAlert
 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface Props {
   preferences: UserPreferences;
@@ -44,6 +45,7 @@ export const HomePage: React.FC<Props> = ({
   onNavigateToTab,
   onOpenReportModal
 }) => {
+  const { t, language } = useLanguage();
   const [searchInput, setSearchInput] = useState('');
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -136,19 +138,18 @@ export const HomePage: React.FC<Props> = ({
           {/* Herb/Badge miejski */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-blue-200/70 text-xs font-bold text-blue-800 shadow-xs">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>Kraków Bez Barier • Oficjalna Platforma Dostępności Miejskiej</span>
+            <span>{t('heroPill')}</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight text-slate-900">
-            Odkrywaj Kraków <br className="hidden sm:inline" />
+            {t('heroTitle1')} <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-indigo-600 to-sky-600">
-              bez barier architektonicznych
+              {t('heroTitle2')}
             </span>
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Pierwsza platforma parametrycznej oceny dostępności zabytków, urzędów, muzeów i tras spacerowych. 
-            Dokładne wymiary w centymetrach, stopnie, windy, toalety i rodzaj nawierzchni – dopasowane precyzyjnie do Twoich potrzeb.
+            {t('heroDesc')}
           </p>
 
           {/* Szybka Wyszukiwarka w Hero */}
@@ -159,22 +160,22 @@ export const HomePage: React.FC<Props> = ({
                 type="text"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                placeholder="Czego szukasz? np. Wawel, Sukiennice, Dworzec, Cricoteka..."
-                aria-label="Wyszukaj obiekt lub miejsce w Krakowie"
+                placeholder={t('searchPlaceholder')}
+                aria-label={t('searchPlaceholder')}
                 className="w-full px-3 py-2 text-slate-900 text-sm rounded-xl bg-transparent outline-none focus:outline-none focus:ring-0 search-input-no-outline"
               />
               <button
                 type="submit"
                 className="px-5 py-2.5 bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold rounded-xl transition-all shadow-xs shrink-0 flex items-center gap-1.5"
               >
-                <span>Szukaj</span>
+                <span>{t('searchBtn')}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
 
             {/* Szybkie tagi / podpowiedzi */}
             <div className="flex flex-wrap items-center justify-center gap-2 mt-3 text-xs text-slate-500">
-              <span className="text-slate-400 font-semibold">Popularne:</span>
+              <span className="text-slate-400 font-semibold">{t('popularLabel')}</span>
               {['Sukiennice', 'Wawel', 'Kraków Główny', 'Planty', 'Kazimierz', 'Cricoteka'].map((tag) => (
                 <button
                   key={tag}
@@ -196,7 +197,7 @@ export const HomePage: React.FC<Props> = ({
               className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs sm:text-sm shadow-md shadow-blue-700/20 transition-all hover:-translate-y-0.5"
             >
               <MapPin className="w-4 h-4" />
-              <span>Przeglądaj Mapę i Miejsca</span>
+              <span>{t('btnBrowseMap')}</span>
             </button>
             <button
               type="button"
@@ -204,7 +205,7 @@ export const HomePage: React.FC<Props> = ({
               className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs sm:text-sm border border-slate-200 shadow-xs transition-all hover:-translate-y-0.5"
             >
               <Compass className="w-4 h-4 text-emerald-600" />
-              <span>Dostępne Trasy Piesze</span>
+              <span>{t('btnBrowseRoutes')}</span>
             </button>
             <button
               type="button"
@@ -212,7 +213,7 @@ export const HomePage: React.FC<Props> = ({
               className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs sm:text-sm border border-slate-200 shadow-xs transition-all hover:-translate-y-0.5"
             >
               <Settings className="w-4 h-4 text-amber-600" />
-              <span>Ustawienia i Opcje</span>
+              <span>{t('btnBrowseSettings')}</span>
             </button>
           </div>
         </div>
@@ -233,26 +234,26 @@ export const HomePage: React.FC<Props> = ({
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/90 border border-blue-200 text-blue-800 text-xs font-bold tracking-wide mb-3 shadow-2xs">
               <Smartphone className="w-3.5 h-3.5 text-blue-700 shrink-0" />
-              <span>APLIKACJA MIEJSKA NOWEJ GENERACJI • WEB & PWA</span>
+              <span>{t('showcaseBadge')}</span>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse ml-1" />
               <span className="text-emerald-700 font-bold">LIVE</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900 leading-tight">
-              Aplikacja, która nie zgaduje Twojej drogi
+              {t('showcaseTitle')}
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-2xl leading-relaxed">
-              Standardowe mapy kończą się na ogólnym znaczku „dostępne”. Kraków Bez Barier dostarcza twarde fakty, wymiary w centymetrach i pełną transparentność danych.
+              {t('showcaseDesc')}
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2 self-start md:self-auto">
             <div className="px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-bold text-slate-700 flex items-center gap-1.5 shadow-xs">
               <Zap className="w-3.5 h-3.5 text-amber-500" />
-              <span>Błyskawiczna (PWA)</span>
+              <span>{t('showcasePwaPill')}</span>
             </div>
             <div className="px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-bold text-slate-700 flex items-center gap-1.5 shadow-xs">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Zero Śledzenia RODO</span>
+              <span>{t('showcasePrivacyPill')}</span>
             </div>
           </div>
         </div>
@@ -267,23 +268,23 @@ export const HomePage: React.FC<Props> = ({
                   <MapPin className="w-5 h-5" />
                 </div>
                 <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-                  Baza Wiedzy
+                  {t('stat1Tag')}
                 </span>
               </div>
               <div className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight group-hover:text-blue-700 transition-colors">
-                10+ Obiektów
+                {t('stat1Title')}
               </div>
               <div className="text-xs font-semibold text-slate-700 mt-1 leading-snug">
-                Zweryfikowanych kluczowych punktów w Krakowie
+                {t('stat1Sub')}
               </div>
               <p className="text-[11px] text-slate-500 mt-2.5 leading-relaxed">
-                Wawel, Sukiennice, Dworzec Główny i zabytki. Wszystkie sprawdzone w terenie pod kątem realnych barier architektonicznych.
+                {t('stat1Desc')}
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600 font-medium">
               <span className="flex items-center gap-1 text-emerald-700">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Audyt terenowy</span>
+                <span>{t('stat1Badge')}</span>
               </span>
               <span className="text-slate-400 group-hover:text-slate-600 transition-colors">UMK / OSM</span>
             </div>
@@ -297,23 +298,23 @@ export const HomePage: React.FC<Props> = ({
                   <Ruler className="w-5 h-5" />
                 </div>
                 <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                  Twarde Liczby
+                  {t('stat2Tag')}
                 </span>
               </div>
               <div className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight group-hover:text-emerald-700 transition-colors">
-                100% Parametrów
+                {t('stat2Title')}
               </div>
               <div className="text-xs font-semibold text-slate-700 mt-1 leading-snug">
-                Centymetry i stopnie zamiast ogólnego „dostępne”
+                {t('stat2Sub')}
               </div>
               <p className="text-[11px] text-slate-500 mt-2.5 leading-relaxed">
-                Precyzyjne wymiary drzwi, progów, nachylenia ramp i kabin toalet. Ty sam decydujesz, co jest dla Ciebie bezpieczne.
+                {t('stat2Desc')}
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600 font-medium">
               <span className="flex items-center gap-1 text-emerald-700">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Dokładność do cm</span>
+                <span>{t('stat2Badge')}</span>
               </span>
               <span className="text-slate-400 group-hover:text-slate-600 transition-colors">Zero ogólników</span>
             </div>
@@ -327,25 +328,25 @@ export const HomePage: React.FC<Props> = ({
                   <ShieldAlert className="w-5 h-5" />
                 </div>
                 <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
-                  Uczciwość Danych
+                  {t('stat3Tag')}
                 </span>
               </div>
               <div className="text-xl sm:text-2xl lg:text-[1.65rem] font-black text-slate-900 tracking-tight group-hover:text-amber-800 transition-colors flex items-center gap-1.5 flex-wrap">
-                <span>Brak danych</span>
+                <span>{language === 'en' ? 'No data' : 'Brak danych'}</span>
                 <span className="px-1.5 py-0.5 rounded bg-amber-100 border border-amber-300 text-amber-900 font-mono text-base font-bold">!=</span>
-                <span>Dostępne</span>
+                <span>{language === 'en' ? 'Accessible' : 'Dostępne'}</span>
               </div>
               <div className="text-xs font-semibold text-slate-700 mt-1 leading-snug">
-                Luki informacyjne są oznaczane jako ostrzeżenia
+                {t('stat3Sub')}
               </div>
               <p className="text-[11px] text-slate-500 mt-2.5 leading-relaxed">
-                Nigdy nie ryzykujemy Twojego bezpieczeństwa domysłami. Gdy brak audytu wejścia, system wyraźnie informuje o luce.
+                {t('stat3Desc')}
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600 font-medium">
               <span className="flex items-center gap-1 text-amber-700">
                 <AlertTriangle className="w-3.5 h-3.5" />
-                <span>Czerwona flaga</span>
+                <span>{t('stat3Badge')}</span>
               </span>
               <span className="text-slate-400 group-hover:text-slate-600 transition-colors">Zero domysłów</span>
             </div>
@@ -359,23 +360,23 @@ export const HomePage: React.FC<Props> = ({
                   <Sparkles className="w-5 h-5" />
                 </div>
                 <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200">
-                  Standard Cyfrowy
+                  {t('stat4Tag')}
                 </span>
               </div>
               <div className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight group-hover:text-purple-700 transition-colors">
-                WCAG 2.2 AA
+                {t('stat4Title')}
               </div>
               <div className="text-xs font-semibold text-slate-700 mt-1 leading-snug">
-                Kontrast, powiększenie tekstu i obsługa czytników
+                {t('stat4Sub')}
               </div>
               <p className="text-[11px] text-slate-500 mt-2.5 leading-relaxed">
-                Aplikacja dostępna cyfrowo: tryb wysokiego kontrastu, czcionka ułatwiająca czytanie przy dysleksji i nawigacja klawiaturą.
+                {t('stat4Desc')}
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600 font-medium">
               <span className="flex items-center gap-1 text-purple-700">
                 <Eye className="w-3.5 h-3.5" />
-                <span>Pełna dostępność</span>
+                <span>{t('stat4Badge')}</span>
               </span>
               <span className="text-slate-400 group-hover:text-slate-600 transition-colors">EAA Standard</span>
             </div>
@@ -390,13 +391,13 @@ export const HomePage: React.FC<Props> = ({
             </div>
             <div>
               <div className="text-xs sm:text-sm font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2 flex-wrap">
-                <span>Zainstaluj na smartfonie bezpośrednio z przeglądarki (PWA)</span>
+                <span>{t('pwaTitle')}</span>
                 <span className="px-2 py-0.5 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-[10px] font-bold">
-                  Bez pobierania ze sklepu
+                  {t('pwaBadge')}
                 </span>
               </div>
               <p className="text-[11px] text-slate-600 mt-0.5">
-                Brak opłat, 100% zgodności z RODO, błyskawiczne działanie w terenie i oszczędność baterii podczas spaceru po Krakowie.
+                {t('pwaDesc')}
               </p>
             </div>
           </div>
@@ -406,7 +407,7 @@ export const HomePage: React.FC<Props> = ({
               onClick={() => onNavigateToTab('places')}
               className="px-4 py-2.5 bg-blue-700 hover:bg-blue-800 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-blue-700/20 flex items-center gap-1.5 hover:scale-105"
             >
-              <span>Przeglądaj obiekty</span>
+              <span>{t('pwaBtn')}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -419,13 +420,13 @@ export const HomePage: React.FC<Props> = ({
           <div>
             <div className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 uppercase tracking-wider mb-1">
               <Sliders className="w-3.5 h-3.5" />
-              <span>Personalizacja parametrów</span>
+              <span>{t('profilesHeaderPill')}</span>
             </div>
             <h2 id="profile-heading" className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Wybierz swój profil mobilności
+              {t('profilesTitle')}
             </h2>
             <p className="text-xs text-slate-500 mt-1 max-w-xl">
-              Kliknij profil, aby natychmiast przeliczyć ocenę dostępności obiektów w Krakowie. Żadnych pytań o orzeczenia medyczne.
+              {t('profilesDesc')}
             </p>
           </div>
           <button
@@ -434,7 +435,7 @@ export const HomePage: React.FC<Props> = ({
             className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 hover:text-blue-900 bg-blue-50 px-3 py-2 rounded-xl border border-blue-200 transition-colors self-start md:self-auto"
           >
             <Settings className="w-3.5 h-3.5" />
-            <span>Zaawansowane parametry w Ustawieniach →</span>
+            <span>{t('profilesAdvancedBtn')}</span>
           </button>
         </div>
 
@@ -455,15 +456,15 @@ export const HomePage: React.FC<Props> = ({
                 <Accessibility className="w-5 h-5" />
               </div>
               {preferences.preset_name === 'wheelchair' && (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-700 text-white">Aktywny</span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-700 text-white">{t('activeBadge')}</span>
               )}
             </div>
-            <h3 className="font-bold text-sm text-slate-900 mb-1">Osoba na wózku</h3>
-            <p className="text-[11px] text-slate-500 mb-2.5">Manualnym lub elektrycznym</p>
+            <h3 className="font-bold text-sm text-slate-900 mb-1">{t('profileWheelchairTitle')}</h3>
+            <p className="text-[11px] text-slate-500 mb-2.5">{t('profileWheelchairDesc')}</p>
             <div className="space-y-1 text-[11px] text-slate-600 border-t border-slate-200/60 pt-2">
-              <div className="flex justify-between"><span>Drzwi min.:</span> <strong className="text-slate-800">≥ 85 cm</strong></div>
-              <div className="flex justify-between"><span>Próg max.:</span> <strong className="text-slate-800">≤ 2.0 cm</strong></div>
-              <div className="flex justify-between"><span>Winda i toaleta:</span> <strong className="text-emerald-700">Wymagane</strong></div>
+              <div className="flex justify-between"><span>{t('ruleMinDoor')}</span> <strong className="text-slate-800">≥ 85 cm</strong></div>
+              <div className="flex justify-between"><span>{t('ruleMaxThreshold')}</span> <strong className="text-slate-800">≤ 2.0 cm</strong></div>
+              <div className="flex justify-between"><span>{t('ruleElevatorToilet')}</span> <strong className="text-emerald-700">{t('ruleRequired')}</strong></div>
             </div>
           </button>
 
@@ -482,15 +483,15 @@ export const HomePage: React.FC<Props> = ({
                 <Luggage className="w-5 h-5" />
               </div>
               {preferences.preset_name === 'luggage' && (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-600 text-white">Aktywny</span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-600 text-white">{t('activeBadge')}</span>
               )}
             </div>
-            <h3 className="font-bold text-sm text-slate-900 mb-1">Turysta z walizką</h3>
-            <p className="text-[11px] text-slate-500 mb-2.5">Podróż bez wibracji i dźwigania</p>
+            <h3 className="font-bold text-sm text-slate-900 mb-1">{t('profileLuggageTitle')}</h3>
+            <p className="text-[11px] text-slate-500 mb-2.5">{t('profileLuggageDesc')}</p>
             <div className="space-y-1 text-[11px] text-slate-600 border-t border-slate-200/60 pt-2">
-              <div className="flex justify-between"><span>Kocie łby:</span> <strong className="text-rose-700">Unikaj</strong></div>
-              <div className="flex justify-between"><span>Schody:</span> <strong className="text-rose-700">Unikaj</strong></div>
-              <div className="flex justify-between"><span>Pochylnie:</span> <strong className="text-emerald-700">Wskazane</strong></div>
+              <div className="flex justify-between"><span>{t('ruleCobblestones')}</span> <strong className="text-rose-700">{t('ruleAvoid')}</strong></div>
+              <div className="flex justify-between"><span>{t('ruleStairs')}</span> <strong className="text-rose-700">{t('ruleAvoid')}</strong></div>
+              <div className="flex justify-between"><span>{t('ruleRamps')}</span> <strong className="text-emerald-700">{t('ruleRecommended')}</strong></div>
             </div>
           </button>
 
@@ -509,15 +510,15 @@ export const HomePage: React.FC<Props> = ({
                 <Baby className="w-5 h-5" />
               </div>
               {preferences.preset_name === 'stroller' && (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-600 text-white">Aktywny</span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-600 text-white">{t('activeBadge')}</span>
               )}
             </div>
-            <h3 className="font-bold text-sm text-slate-900 mb-1">Rodzina z dzieckiem</h3>
-            <p className="text-[11px] text-slate-500 mb-2.5">Wózek gondola lub spacerówka</p>
+            <h3 className="font-bold text-sm text-slate-900 mb-1">{t('profileStrollerTitle')}</h3>
+            <p className="text-[11px] text-slate-500 mb-2.5">{t('profileStrollerDesc')}</p>
             <div className="space-y-1 text-[11px] text-slate-600 border-t border-slate-200/60 pt-2">
-              <div className="flex justify-between"><span>Drzwi min.:</span> <strong className="text-slate-800">≥ 75 cm</strong></div>
-              <div className="flex justify-between"><span>Próg max.:</span> <strong className="text-slate-800">≤ 4.0 cm</strong></div>
-              <div className="flex justify-between"><span>Strefy odpoczynku:</span> <strong className="text-emerald-700">Wymagane</strong></div>
+              <div className="flex justify-between"><span>{t('ruleMinDoor')}</span> <strong className="text-slate-800">≥ 75 cm</strong></div>
+              <div className="flex justify-between"><span>{t('ruleMaxThreshold')}</span> <strong className="text-slate-800">≤ 4.0 cm</strong></div>
+              <div className="flex justify-between"><span>{t('ruleRestAreas')}</span> <strong className="text-emerald-700">{t('ruleRequired')}</strong></div>
             </div>
           </button>
 
@@ -536,15 +537,15 @@ export const HomePage: React.FC<Props> = ({
                 <UserCheck className="w-5 h-5" />
               </div>
               {preferences.preset_name === 'senior' && (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-600 text-white">Aktywny</span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-600 text-white">{t('activeBadge')}</span>
               )}
             </div>
-            <h3 className="font-bold text-sm text-slate-900 mb-1">Senior / Asysta</h3>
-            <p className="text-[11px] text-slate-500 mb-2.5">Miejsca odpoczynku i poręcze</p>
+            <h3 className="font-bold text-sm text-slate-900 mb-1">{t('profileSeniorTitle')}</h3>
+            <p className="text-[11px] text-slate-500 mb-2.5">{t('profileSeniorDesc')}</p>
             <div className="space-y-1 text-[11px] text-slate-600 border-t border-slate-200/60 pt-2">
-              <div className="flex justify-between"><span>Ławki i odpoczynek:</span> <strong className="text-emerald-700">Wymagane</strong></div>
-              <div className="flex justify-between"><span>Schody bez windy:</span> <strong className="text-rose-700">Unikaj</strong></div>
-              <div className="flex justify-between"><span>Bruk kamienny:</span> <strong className="text-rose-700">Unikaj</strong></div>
+              <div className="flex justify-between"><span>{t('ruleBenchesRest')}</span> <strong className="text-emerald-700">{t('ruleRequired')}</strong></div>
+              <div className="flex justify-between"><span>{t('ruleStairsNoLift')}</span> <strong className="text-rose-700">{t('ruleAvoid')}</strong></div>
+              <div className="flex justify-between"><span>{t('ruleStonePaving')}</span> <strong className="text-rose-700">{t('ruleAvoid')}</strong></div>
             </div>
           </button>
         </div>
@@ -556,10 +557,10 @@ export const HomePage: React.FC<Props> = ({
           <div>
             <div className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 uppercase tracking-wider mb-1">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Dopasowane do Twojego profilu</span>
+              <span>{t('featuredPoisPill')}</span>
             </div>
             <h2 id="featured-places-heading" className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Wyróżnione miejsca w Krakowie
+              {t('featuredPoisTitle')}
             </h2>
           </div>
           <button
@@ -567,7 +568,7 @@ export const HomePage: React.FC<Props> = ({
             onClick={() => onNavigateToTab('places')}
             className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 hover:text-blue-900"
           >
-            <span>Zobacz wszystkie obiekty ({evaluatedPois.length})</span>
+            <span>{t('featuredPoisAllBtn')} ({evaluatedPois.length})</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>
@@ -594,7 +595,7 @@ export const HomePage: React.FC<Props> = ({
                         ? 'bg-emerald-100 text-emerald-800' 
                         : 'bg-amber-100 text-amber-900'
                     }`}>
-                      {hasGaps ? 'Luki danych' : `${evaluation.match_score}% dopasowania`}
+                      {hasGaps ? t('dataGapsBadge') : `${evaluation.match_score}% ${t('matchScore')}`}
                     </span>
                   </div>
 
@@ -608,20 +609,20 @@ export const HomePage: React.FC<Props> = ({
 
                   <div className="my-3 py-2 border-y border-slate-100 grid grid-cols-2 gap-2 text-[11px] text-slate-600">
                     <div>
-                      <span className="text-slate-400 block">Wejście:</span>
-                      <strong>{poi.features.steps_at_entrance === 0 ? '0 stopni (płasko)' : `${poi.features.steps_at_entrance} st.`}</strong>
+                      <span className="text-slate-400 block">{t('entranceLabel')}</span>
+                      <strong>{poi.features.steps_at_entrance === 0 ? '0 st. (flat)' : `${poi.features.steps_at_entrance} st.`}</strong>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">Szerokość drzwi:</span>
-                      <strong>{poi.features.entrance_width_cm ? `${poi.features.entrance_width_cm} cm` : 'Brak danych'}</strong>
+                      <span className="text-slate-400 block">{t('doorWidthLabel')}</span>
+                      <strong>{poi.features.entrance_width_cm ? `${poi.features.entrance_width_cm} cm` : '—'}</strong>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">Toaleta:</span>
-                      <strong>{poi.features.accessible_toilet.available ? 'Dostosowana' : 'Brak / Nie'}</strong>
+                      <span className="text-slate-400 block">{t('toiletLabel')}</span>
+                      <strong>{poi.features.accessible_toilet.available ? (language === 'en' ? 'Yes' : 'Dostosowana') : '—'}</strong>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">Winda:</span>
-                      <strong>{poi.features.elevator.available ? 'Dostępna' : 'Brak / Nie'}</strong>
+                      <span className="text-slate-400 block">{t('elevatorLabel')}</span>
+                      <strong>{poi.features.elevator.available ? (language === 'en' ? 'Yes' : 'Dostępna') : '—'}</strong>
                     </div>
                   </div>
                 </div>
@@ -632,7 +633,7 @@ export const HomePage: React.FC<Props> = ({
                     onClick={() => onSelectPoi(poi)}
                     className="flex-1 py-1.5 px-3 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg text-xs font-bold transition-colors text-center"
                   >
-                    Szczegóły audytu
+                    {t('auditDetailsBtn')}
                   </button>
                   <button
                     type="button"
@@ -655,13 +656,13 @@ export const HomePage: React.FC<Props> = ({
           <div>
             <div className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 uppercase tracking-wider mb-1">
               <Navigation className="w-3.5 h-3.5" />
-              <span>Nawigacja bez barier</span>
+              <span>{t('routesPill')}</span>
             </div>
             <h2 id="featured-routes-heading" className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Rekomendowane trasy piesze
+              {t('routesTitle')}
             </h2>
             <p className="text-xs text-slate-500 mt-1">
-              Analiza nawierzchni krok po kroku z podziałem na asfalt, płyty chodnikowe i kocie łby.
+              {t('routesDesc')}
             </p>
           </div>
           <button
@@ -670,7 +671,7 @@ export const HomePage: React.FC<Props> = ({
             className="inline-flex items-center gap-2 px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-xl text-xs font-bold transition-all shadow-xs"
           >
             <Compass className="w-4 h-4" />
-            <span>Otwórz Planer Tras</span>
+            <span>{t('routesPlannerBtn')}</span>
           </button>
         </div>
 
@@ -680,30 +681,30 @@ export const HomePage: React.FC<Props> = ({
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full">
-                  Dystans: 850 metrów
+                  {t('distanceLabel')} 850 {language === 'en' ? 'meters' : 'metrów'}
                 </span>
                 <span className="text-xs font-bold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full flex items-center gap-1">
                   <CheckCircle2 className="w-3 h-3" />
-                  Rekomendowana (92%)
+                  {t('routeRecommendedBadge')}
                 </span>
               </div>
               <h3 className="font-black text-base text-slate-900 mb-1">
-                🚆 Dworzec Główny PKP → Rynek Główny
+                🚆 {t('route1Title')}
               </h3>
               <p className="text-xs text-slate-500 mb-4">
-                Trasa przez Planty i ul. Szpitalną. Płaskie wjazdy z peronów, gładkie płyty chodnikowe i asfalt w parku.
+                {t('route1Desc')}
               </p>
 
               {/* Pasek nawierzchni */}
               <div className="mb-4">
                 <div className="flex justify-between text-[11px] text-slate-600 mb-1">
-                  <span>Nawierzchnia:</span>
-                  <strong>60% płyty, 30% asfalt, 10% bruk</strong>
+                  <span>{t('surfaceLabel')}</span>
+                  <strong>{t('route1Surface')}</strong>
                 </div>
                 <div className="h-2.5 rounded-full overflow-hidden flex bg-slate-200">
-                  <div style={{ width: '60%' }} className="bg-blue-500" title="Płyty chodnikowe 60%" />
-                  <div style={{ width: '30%' }} className="bg-emerald-500" title="Asfalt 30%" />
-                  <div style={{ width: '10%' }} className="bg-amber-500" title="Bruk 10%" />
+                  <div style={{ width: '60%' }} className="bg-blue-500" title="60%" />
+                  <div style={{ width: '30%' }} className="bg-emerald-500" title="30%" />
+                  <div style={{ width: '10%' }} className="bg-amber-500" title="10%" />
                 </div>
               </div>
             </div>
@@ -713,7 +714,7 @@ export const HomePage: React.FC<Props> = ({
               onClick={() => onNavigateToTab('routes')}
               className="w-full py-2 bg-white hover:bg-slate-100 text-slate-800 border border-slate-200 rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
             >
-              <span>Zobacz etapy trasy krok po kroku</span>
+              <span>{t('viewRouteStepsBtn')}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -723,30 +724,30 @@ export const HomePage: React.FC<Props> = ({
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full">
-                  Dystans: 950 metrów
+                  {t('distanceLabel')} 950 {language === 'en' ? 'meters' : 'metrów'}
                 </span>
                 <span className="text-xs font-bold text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full flex items-center gap-1">
                   <AlertTriangle className="w-3 h-3" />
-                  Wymaga uwagi (75%)
+                  {t('routeAttentionBadge')}
                 </span>
               </div>
               <h3 className="font-black text-base text-slate-900 mb-1">
-                🏰 Rynek Główny → Zamek Królewski Wawel
+                🏰 {t('route2Title')}
               </h3>
               <p className="text-xs text-slate-500 mb-4">
-                Trasa przez ul. Grodzką. Historyczna kostka brukowa na podejściu wawelskim wymaga uwagi przy wózkach i walizkach.
+                {t('route2Desc')}
               </p>
 
               {/* Pasek nawierzchni */}
               <div className="mb-4">
                 <div className="flex justify-between text-[11px] text-slate-600 mb-1">
-                  <span>Nawierzchnia:</span>
-                  <strong>50% płyty, 35% bruk, 15% kocie łby</strong>
+                  <span>{t('surfaceLabel')}</span>
+                  <strong>{t('route2Surface')}</strong>
                 </div>
                 <div className="h-2.5 rounded-full overflow-hidden flex bg-slate-200">
-                  <div style={{ width: '50%' }} className="bg-blue-500" title="Płyty 50%" />
-                  <div style={{ width: '35%' }} className="bg-amber-500" title="Bruk 35%" />
-                  <div style={{ width: '15%' }} className="bg-rose-500" title="Kocie łby 15%" />
+                  <div style={{ width: '50%' }} className="bg-blue-500" title="50%" />
+                  <div style={{ width: '35%' }} className="bg-amber-500" title="35%" />
+                  <div style={{ width: '15%' }} className="bg-rose-500" title="15%" />
                 </div>
               </div>
             </div>
@@ -756,7 +757,7 @@ export const HomePage: React.FC<Props> = ({
               onClick={() => onNavigateToTab('routes')}
               className="w-full py-2 bg-white hover:bg-slate-100 text-slate-800 border border-slate-200 rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
             >
-              <span>Zobacz etapy trasy krok po kroku</span>
+              <span>{t('viewRouteStepsBtn')}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -767,13 +768,13 @@ export const HomePage: React.FC<Props> = ({
       <section aria-labelledby="why-heading" className="bg-gradient-to-br from-slate-50 via-blue-50/50 to-slate-50 text-slate-900 rounded-3xl p-6 sm:p-10 shadow-xs border border-blue-100">
         <div className="max-w-3xl mb-8">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider mb-2 border border-blue-200">
-            Innowacja i Rzetelność
+            {t('pillarsPill')}
           </div>
           <h2 id="why-heading" className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">
-            Dlaczego standardowe mapy zawodzą, a Kraków Bez Barier daje pewność?
+            {t('pillarsTitle')}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-2">
-            Koniec z jednym znaczkiem „dostępne dla niepełnosprawnych”. Rzeczywiste potrzeby wymagają konkretnych danych.
+            {t('pillarsDesc')}
           </p>
         </div>
 
@@ -782,9 +783,9 @@ export const HomePage: React.FC<Props> = ({
             <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-black mb-3">
               1
             </div>
-            <h3 className="font-bold text-sm text-slate-900 mb-1.5">Parametry zamiast etykiet</h3>
+            <h3 className="font-bold text-sm text-slate-900 mb-1.5">{t('pillar1Title')}</h3>
             <p className="text-slate-600 leading-relaxed">
-              Podajemy dokładną liczbę stopni, szerokość drzwi w centymetrach, kąt nachylenia rampy i rodzaj nawierzchni. Ty decydujesz, co jest dla Ciebie bezpieczne.
+              {t('pillar1Desc')}
             </p>
           </div>
 
@@ -792,9 +793,9 @@ export const HomePage: React.FC<Props> = ({
             <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-black mb-3">
               2
             </div>
-            <h3 className="font-bold text-sm text-slate-900 mb-1.5">Piramida wiarygodności</h3>
+            <h3 className="font-bold text-sm text-slate-900 mb-1.5">{t('pillar2Title')}</h3>
             <p className="text-slate-600 leading-relaxed">
-              Każde miejsce ma określone źródło (audyt miejski UMK, OpenStreetMap lub zgłoszenie mieszkańców) i datę ostatniej weryfikacji w terenie.
+              {t('pillar2Desc')}
             </p>
           </div>
 
@@ -802,9 +803,9 @@ export const HomePage: React.FC<Props> = ({
             <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center font-black mb-3">
               3
             </div>
-            <h3 className="font-bold text-sm text-slate-900 mb-1.5">Brak danych != Dostępne</h3>
+            <h3 className="font-bold text-sm text-slate-900 mb-1.5">{t('pillar3Title')}</h3>
             <p className="text-slate-600 leading-relaxed">
-              Gdy nie ma pomiaru wejścia lub toalety, system ostrzega czerwoną plakietką „Luki w danych”. Nigdy nie ryzykujemy Twojego bezpieczeństwa domysłami.
+              {t('pillar3Desc')}
             </p>
           </div>
 
@@ -812,9 +813,9 @@ export const HomePage: React.FC<Props> = ({
             <div className="w-8 h-8 rounded-lg bg-purple-100 text-purple-800 flex items-center justify-center font-black mb-3">
               4
             </div>
-            <h3 className="font-bold text-sm text-slate-900 mb-1.5">Prywatność (RODO)</h3>
+            <h3 className="font-bold text-sm text-slate-900 mb-1.5">{t('pillar4Title')}</h3>
             <p className="text-slate-600 leading-relaxed">
-              Zero pytań o stan zdrowia czy niepełnosprawność. Twoje ustawienia fizyczne pozostają wyłącznie w Twojej przeglądarce i nie są profilowane.
+              {t('pillar4Desc')}
             </p>
           </div>
         </div>
@@ -824,10 +825,10 @@ export const HomePage: React.FC<Props> = ({
       <section aria-label="Zgłaszanie barier architektonicznych" className="bg-blue-50 border border-blue-200 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="space-y-1 text-center md:text-left">
           <h2 className="text-lg sm:text-xl font-bold text-blue-950">
-            Zauważyłeś nową barierę lub błąd w danych w Krakowie?
+            {t('communityTitle')}
           </h2>
           <p className="text-xs text-blue-800 max-w-xl">
-            Społeczność jest sercem tego projektu. Zgłoś brakujący podjazd, remont wejścia lub nieczynną windę w prostym formularzu.
+            {t('communityDesc')}
           </p>
         </div>
         <button
@@ -836,7 +837,7 @@ export const HomePage: React.FC<Props> = ({
           className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs sm:text-sm shadow-md transition-all shrink-0"
         >
           <PlusCircle className="w-4 h-4" />
-          <span>Zgłoś barierę / Dodaj korektę</span>
+          <span>{t('communityBtn')}</span>
         </button>
       </section>
 
@@ -844,10 +845,10 @@ export const HomePage: React.FC<Props> = ({
       <section aria-labelledby="settings-ref-heading" className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs">
         <div className="mb-6">
           <h2 id="settings-ref-heading" className="text-lg sm:text-xl font-bold text-slate-900">
-            Centrum ustawień i opcji dostępności
+            {t('settingsTitle')}
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Dostosuj aplikację pod kątem wzroku, obsługi klawiatury, parametrów architektonicznych i prywatności.
+            {t('settingsDesc')}
           </p>
         </div>
 
@@ -860,8 +861,8 @@ export const HomePage: React.FC<Props> = ({
             <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
               <Eye className="w-4 h-4" />
             </div>
-            <h3 className="font-bold text-xs text-slate-900 mb-0.5">Kontrast i Rozmiar Tekstu</h3>
-            <p className="text-[11px] text-slate-500">Standard WCAG: powiększ czcionkę lub włącz wysoki kontrast.</p>
+            <h3 className="font-bold text-xs text-slate-900 mb-0.5">{language === 'en' ? 'Contrast & Text Scaling' : 'Kontrast i Rozmiar Tekstu'}</h3>
+            <p className="text-[11px] text-slate-500">{language === 'en' ? 'WCAG standard: enlarge font or toggle high contrast.' : 'Standard WCAG: powiększ czcionkę lub włącz wysoki kontrast.'}</p>
           </button>
 
           <button
@@ -872,8 +873,8 @@ export const HomePage: React.FC<Props> = ({
             <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
               <Sliders className="w-4 h-4" />
             </div>
-            <h3 className="font-bold text-xs text-slate-900 mb-0.5">Precyzyjne Wymiary</h3>
-            <p className="text-[11px] text-slate-500">Ustaw suwakami szerokość drzwi (cm) i tolerancję progów.</p>
+            <h3 className="font-bold text-xs text-slate-900 mb-0.5">{language === 'en' ? 'Precise Dimensions' : 'Precyzyjne Wymiary'}</h3>
+            <p className="text-[11px] text-slate-500">{language === 'en' ? 'Set door width (cm) and step threshold limits.' : 'Ustaw suwakami szerokość drzwi (cm) i tolerancję progów.'}</p>
           </button>
 
           <button
@@ -884,8 +885,8 @@ export const HomePage: React.FC<Props> = ({
             <div className="w-8 h-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
               <Layers className="w-4 h-4" />
             </div>
-            <h3 className="font-bold text-xs text-slate-900 mb-0.5">Styl Mapy i Widoki</h3>
-            <p className="text-[11px] text-slate-500">Wybierz domyślny podgląd (mapa, lista lub widok dzielony).</p>
+            <h3 className="font-bold text-xs text-slate-900 mb-0.5">{language === 'en' ? 'Map Style & Views' : 'Styl Mapy i Widoki'}</h3>
+            <p className="text-[11px] text-slate-500">{language === 'en' ? 'Choose default display (map, list, or split view).' : 'Wybierz domyślny podgląd (mapa, lista lub widok dzielony).'}</p>
           </button>
 
           <button
@@ -896,8 +897,8 @@ export const HomePage: React.FC<Props> = ({
             <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
               <ShieldCheck className="w-4 h-4" />
             </div>
-            <h3 className="font-bold text-xs text-slate-900 mb-0.5">Prywatność i Pamięć</h3>
-            <p className="text-[11px] text-slate-500">Zarządzaj lokalnym zapisem danych i wyczyść pamięć.</p>
+            <h3 className="font-bold text-xs text-slate-900 mb-0.5">{language === 'en' ? 'Privacy & Storage' : 'Prywatność i Pamięć'}</h3>
+            <p className="text-[11px] text-slate-500">{language === 'en' ? 'Manage local storage and reset saved profile cache.' : 'Zarządzaj lokalnym zapisem danych i wyczyść pamięć.'}</p>
           </button>
         </div>
       </section>
