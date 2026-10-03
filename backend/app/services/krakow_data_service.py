@@ -4,6 +4,7 @@ from typing import List, Optional
 from app.models.poi import POI, UserPreferences, AccessibilityEvaluation, CredibilityLevel
 from app.models.feedback import FeedbackSubmission
 from app.services.accessibility_scorer import evaluate_poi_accessibility
+from app.services.firestore_service import firestore_service
 
 class KrakowDataRepository:
     def __init__(self, data_path: Optional[str] = None):
@@ -16,12 +17,20 @@ class KrakowDataRepository:
         self._load_seed_data()
 
     def _load_seed_data(self):
-        if os.path.exists(self.data_path):
+        # Pobieranie z Google Cloud Firestore z automatycznym fallbackiem do pliku JSON
+        pois = firestore_service.get_all_pois()
+        if pois:
+            self._places = pois
+        elif os.path.exists(self.data_path):
             with open(self.data_path, "r", encoding="utf-8") as f:
                 raw_list = json.load(f)
                 self._places = [POI(**item) for item in raw_list]
         else:
             self._places = []
+
+    def reload(self):
+        """Ponowne odświeżenie danych z bazy Firestore."""
+        self._load_seed_data()
 
     def get_all_places(self) -> List[POI]:
         return self._places
@@ -72,6 +81,9 @@ class KrakowDataRepository:
 
     def add_feedback(self, submission: FeedbackSubmission) -> bool:
         self._feedbacks.append(submission)
+        # Zapis zgłoszenia do chmury Firestore
+        firestore_service.save_feedback(submission)
+
         # Oznaczenie obiektu o toczącym się zgłoszeniu
         poi = self.get_place_by_id(submission.poi_id)
         if poi:
@@ -84,6 +96,7 @@ class KrakowDataRepository:
                 poi.meta.credibility_level = CredibilityLevel.UNVERIFIED_REPORT
                 poi.meta.credibility_score = 55
                 poi.meta.data_gaps.append("Zawiera nowe, oczekujące na weryfikację zgłoszenie użytkownika")
+                firestore_service.save_poi(poi)
         return True
 
 repo = KrakowDataRepository()

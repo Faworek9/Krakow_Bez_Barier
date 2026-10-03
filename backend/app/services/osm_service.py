@@ -29,12 +29,18 @@ class OSMOverpassService:
         >;
         out skel qt;
         """
+        headers = {
+            "User-Agent": "KrakowBezBarier/1.0 (Accessibility Hackathon; contact@krakowbezbarier.pl)",
+            "Accept": "application/json"
+        }
         try:
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                response = await client.post(self.endpoint_url, data={"data": query})
+            async with httpx.AsyncClient(timeout=25.0) as client:
+                response = await client.post(self.endpoint_url, data={"data": query}, headers=headers)
                 if response.status_code == 200:
                     data = response.json()
                     return data.get("elements", [])
+                else:
+                    print(f"[OSM Service Warning] Overpass API zwróciło status: {response.status_code}")
                 return []
         except Exception as e:
             # Fallback w przypadku awarii lub ograniczenia limitów Overpass API
