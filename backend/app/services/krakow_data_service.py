@@ -99,4 +99,18 @@ class KrakowDataRepository:
                 firestore_service.save_poi(poi)
         return True
 
+    def add_or_update_poi(self, poi: POI) -> bool:
+        """Dodaje nowy obiekt lub aktualizuje istniejący w pamięci i Firestore."""
+        # Usunięcie starego jeśli istnieje
+        self._places = [p for p in self._places if p.id != poi.id]
+        self._places.insert(0, poi)
+        # Zapis do Firestore
+        firestore_service.save_poi(poi)
+        return True
+
+    def get_places_by_owner(self, owner_id: str) -> List[POI]:
+        """Zwraca listę obiektów należących do danego profilu biznesowego."""
+        return [p for p in self._places if p.owner_user_id == owner_id]
+
 repo = KrakowDataRepository()
+

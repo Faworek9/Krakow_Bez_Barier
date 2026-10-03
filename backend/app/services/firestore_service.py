@@ -100,6 +100,10 @@ class FirestoreService:
         report_dict["created_at"] = now_str
         report_dict["moderation_status"] = "pending_verification"
 
+        if not hasattr(self, '_memory_feedbacks'):
+            self._memory_feedbacks = []
+        self._memory_feedbacks.insert(0, report_dict)
+
         if self._is_connected and self._db:
             try:
                 self._db.collection("feedback_reports").document(report_id).set(report_dict)
@@ -113,6 +117,21 @@ class FirestoreService:
             message="Dziękujemy! Twoja korekta parametrów dostępności została zapisana w chmurze.",
             moderation_status="pending_verification"
         )
+
+    def get_feedback_by_user(self, user_id: str) -> List[Dict[str, Any]]:
+        """Zwraca listę zgłoszeń dodanych przez danego użytkownika."""
+        if self._is_connected and self._db:
+            try:
+                docs = self._db.collection("feedback_reports").where("user_id", "==", user_id).stream()
+                reports = [doc.to_dict() for doc in docs]
+                if reports:
+                    return sorted(reports, key=lambda x: x.get("created_at", ""), reverse=True)
+            except Exception as e:
+                logger.error(f"Błąd pobierania zgłoszeń użytkownika z Firestore: {e}")
+
+        if hasattr(self, '_memory_feedbacks'):
+            return [f for f in self._memory_feedbacks if f.get("user_id") == user_id]
+        return []
 
     def seed_initial_places_if_empty(self) -> int:
         """Zasila Firestore początkowymi audytami z Krakowa, jeśli kolekcja jest pusta."""

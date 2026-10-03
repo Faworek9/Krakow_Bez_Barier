@@ -151,3 +151,64 @@ export interface AppSettings {
   mapTileLayer: 'standard' | 'contrast' | 'satellite';
 }
 
+export type UserRole = 'user' | 'business' | 'admin';
+
+export interface BusinessInfo {
+  company_name: string;
+  nip?: string;
+  phone?: string;
+  website?: string;
+  address?: string;
+  verified_business?: boolean;
+}
+
+export interface User {
+  id: string;
+  email: string;
+  role: UserRole;
+  display_name: string;
+  business_info?: BusinessInfo | null;
+  created_at: string;
+  reputation_points: number;
+}
+
+export interface AuthResponse {
+  access_token: string;
+  token_type: string;
+  user: User;
+}
+
+export interface BusinessPlaceInput {
+  name: string;
+  category: string;
+  address: string;
+  district: string;
+  description?: string;
+  lat?: number;
+  lng?: number;
+  entrance_width_cm: number;
+  steps_at_entrance: number;
+  has_ramp: boolean;
+  ramp_slope_percent?: number | null;
+  max_curb_cm: number;
+  surface_type: string;
+  has_elevator: boolean;
+  has_accessible_toilet: boolean;
+  tactile_paving: boolean;
+  hearing_loop: boolean;
+  guide_dog_allowed: boolean;
+}
+
+export interface UserReportItem {
+  id: string;
+  poi_id: string;
+  poi_name?: string;
+  reported_by_nickname: string;
+  verified_on_site: boolean;
+  comment?: string;
+  created_at: string;
+  moderation_status: string;
+  user_id?: string;
+}
+
+
