@@ -15,7 +15,6 @@ import {
   Search, 
   Navigation, 
   Layers, 
-  PlusCircle, 
   HelpCircle,
   Eye,
   Settings,
@@ -821,27 +820,7 @@ export const HomePage: React.FC<Props> = ({
         </div>
       </section>
 
-      {/* 7. WSPÓŁTWORZENIE I ZGŁASZANIE BARIER */}
-      <section aria-label="Zgłaszanie barier architektonicznych" className="bg-blue-50 border border-blue-200 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="space-y-1 text-center md:text-left">
-          <h2 className="text-lg sm:text-xl font-bold text-blue-950">
-            {t('communityTitle')}
-          </h2>
-          <p className="text-xs text-blue-800 max-w-xl">
-            {t('communityDesc')}
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={onOpenReportModal}
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs sm:text-sm shadow-md transition-all shrink-0"
-        >
-          <PlusCircle className="w-4 h-4" />
-          <span>{t('communityBtn')}</span>
-        </button>
-      </section>
-
-      {/* 8. ODNIESIENIA DO USTAWIEŃ I OPCJI */}
+      {/* 7. ODNIESIENIA DO USTAWIEŃ I OPCJI */}
       <section aria-labelledby="settings-ref-heading" className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs">
         <div className="mb-6">
           <h2 id="settings-ref-heading" className="text-lg sm:text-xl font-bold text-slate-900">
