@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlusCircle, Compass, MapPin, Home, Settings, LogIn, LogOut, User as UserIcon, Building2, MessageSquare } from 'lucide-react';
+import { Compass, MapPin, Home, Settings, LogIn, LogOut, User as UserIcon, Building2, MessageSquare } from 'lucide-react';
 import { NavigationTab } from '../types';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -120,19 +120,6 @@ export const Navbar: React.FC<Props> = ({
             >
               <Settings className="w-4 h-4" aria-hidden="true" />
             </button>
-
-            {/* Zgłoś barierę / korektę - widoczny na pasku tylko przed zalogowaniem */}
-            {!isLoggedIn && (
-              <button
-                type="button"
-                onClick={onOpenReportModal}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-700 hover:bg-blue-800 text-white shadow-xs transition-colors shrink-0"
-              >
-                <PlusCircle className="w-4 h-4" aria-hidden="true" />
-                <span className="hidden sm:inline">{t('navReport')}</span>
-              </button>
-            )}
-
             {/* SEKCJA UWIERZYTELNIANIA (Użytkownicy i Firmy) */}
             <div className="h-6 w-px bg-slate-200 hidden sm:block mx-1"></div>
 

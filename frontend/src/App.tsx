@@ -554,16 +554,6 @@ export const App: React.FC = () => {
               <button type="button" onClick={() => handleNavigateToTab('settings')} className="hover:text-blue-700">
                 Ustawienia i Opcje
               </button>
-              <button 
-                type="button" 
-                onClick={() => {
-                  setReportTargetPoi(null);
-                  setReportModalOpen(true);
-                }} 
-                className="text-blue-700 hover:text-blue-900 font-bold"
-              >
-                + Zgłoś barierę
-              </button>
             </div>
           </div>
 

@@ -381,36 +381,6 @@ export const HomePage: React.FC<Props> = ({
             </div>
           </div>
         </div>
-
-        {/* Dolny baner reklamowy - Instalacja PWA i mobilność (Jasny motyw) */}
-        <div className="relative z-10 mt-6 pt-5 border-t border-blue-100 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/80 backdrop-blur-xs -mx-6 sm:-mx-8 lg:-mx-10 -mb-6 sm:-mb-8 lg:-mb-10 p-5 sm:p-6 rounded-b-3xl border-b border-x border-blue-200/60">
-          <div className="flex items-center gap-3.5 text-center sm:text-left">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20 shrink-0 hidden sm:flex">
-              <Smartphone className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="text-xs sm:text-sm font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2 flex-wrap">
-                <span>{t('pwaTitle')}</span>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-[10px] font-bold">
-                  {t('pwaBadge')}
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-600 mt-0.5">
-                {t('pwaDesc')}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              type="button"
-              onClick={() => onNavigateToTab('places')}
-              className="px-4 py-2.5 bg-blue-700 hover:bg-blue-800 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-blue-700/20 flex items-center gap-1.5 hover:scale-105"
-            >
-              <span>{t('pwaBtn')}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
-        </div>
       </section>
 
       {/* 3. SZYBKI WYBÓR PROFILU MOBILNOŚCI */}
