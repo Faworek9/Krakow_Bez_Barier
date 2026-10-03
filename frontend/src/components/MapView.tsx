@@ -20,9 +20,10 @@ export const MapView: React.FC<Props> = ({ items, selectedPoi, onSelectPoi }) =>
       // Domyślne centrum: Kraków Rynek Główny
       const map = L.map(mapContainerRef.current).setView([50.0614, 19.9365], 14);
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 19
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
       }).addTo(map);
 
       mapInstanceRef.current = map;

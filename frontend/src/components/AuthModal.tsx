@@ -92,7 +92,7 @@ export const AuthModal: React.FC<Props> = ({
       aria-labelledby="auth-modal-title"
       className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto"
     >
-      <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl border-0 overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
         {/* Nagłówek Modalu */}
         <div className="bg-gradient-to-r from-blue-700 to-blue-900 text-white p-6 relative">
           <button
@@ -148,50 +148,55 @@ export const AuthModal: React.FC<Props> = ({
             </div>
           )}
 
-          {/* FORMULARZ LOGOWANIA */}
+          {/* FORMULARZ LOGOWANIA (Stabilna wysokość bez skakania okna) */}
           {tab === 'login' ? (
-            <form onSubmit={handleLoginSubmit} className="space-y-4 text-xs">
-              <div>
-                <label className="block font-bold text-slate-700 mb-1">Adres e-mail</label>
-                <div className="relative">
-                  <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="email"
-                    required
-                    value={loginEmail}
-                    onChange={(e) => setLoginEmail(e.target.value)}
-                    placeholder="twoj.email@example.com"
-                    className="w-full pl-9 pr-3 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
-                  />
+            <form onSubmit={handleLoginSubmit} className="min-h-[350px] flex flex-col justify-between text-xs">
+              <div className="space-y-4">
+                <div className="p-3 bg-blue-50/80 rounded-xl border border-blue-100 text-[11px] text-blue-900 leading-relaxed">
+                  Zaloguj się, aby uzyskać dostęp do historii zgłoszonych barier w Krakowie, punktów zaufania obywatelskiego (+10 pkt) oraz panelu dla firm.
                 </div>
-              </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Adres e-mail</label>
+                  <div className="relative">
+                    <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="email"
+                      required
+                      value={loginEmail}
+                      onChange={(e) => setLoginEmail(e.target.value)}
+                      placeholder="twoj.email@example.com"
+                      className="w-full pl-9 pr-3 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                    />
+                  </div>
+                </div>
 
-              <div>
-                <label className="block font-bold text-slate-700 mb-1">Hasło</label>
-                <div className="relative">
-                  <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="password"
-                    required
-                    value={loginPassword}
-                    onChange={(e) => setLoginPassword(e.target.value)}
-                    placeholder="••••••••"
-                    className="w-full pl-9 pr-3 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
-                  />
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Hasło</label>
+                  <div className="relative">
+                    <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="password"
+                      required
+                      value={loginPassword}
+                      onChange={(e) => setLoginPassword(e.target.value)}
+                      placeholder="••••••••"
+                      className="w-full pl-9 pr-3 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-hidden"
+                    />
+                  </div>
                 </div>
               </div>
 
               <button
                 type="submit"
                 disabled={loadingAction}
-                className="w-full py-2.5 bg-blue-700 hover:bg-blue-800 text-white font-bold rounded-xl transition-colors shadow-xs disabled:opacity-50"
+                className="w-full py-2.5 bg-blue-700 hover:bg-blue-800 text-white font-bold rounded-xl transition-colors shadow-xs disabled:opacity-50 mt-4"
               >
                 {loadingAction ? 'Logowanie...' : 'Zaloguj się'}
               </button>
             </form>
           ) : (
             /* FORMULARZ REJESTRACJI */
-            <form onSubmit={handleRegisterSubmit} className="space-y-4 text-xs">
+            <form onSubmit={handleRegisterSubmit} className="min-h-[350px] flex flex-col justify-between space-y-3.5 text-xs">
               {/* Wybór Roli */}
               <div>
                 <label className="block font-bold text-slate-700 mb-2">Wybierz typ konta:</label>
