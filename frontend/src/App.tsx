@@ -496,7 +496,10 @@ export const App: React.FC = () => {
 
         {/* ZAKŁADKA: TRASY PIESZE */}
         {activeTab === 'routes' && (
-          <RoutePlanner preferences={preferences} />
+          <RoutePlanner 
+            preferences={preferences} 
+            availablePois={evaluatedPois.map(e => e.poi)} 
+          />
         )}
 
         {/* ZAKŁADKA: USTAWIENIA I OPCJE */}

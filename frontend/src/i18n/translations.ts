@@ -143,6 +143,16 @@ export interface TranslationDictionary {
   routeAttentionBadge: string;
   routePlannerTitle: string;
   routePlannerDesc: string;
+  routeModeCustom: string;
+  routeModeDemo: string;
+  routeStartPoint: string;
+  routeDestPoint: string;
+  routeSelectPlaceholder: string;
+  routeCalculateBtn: string;
+  routeSwapBtn: string;
+  routeSurfaceBreakdown: string;
+  routeStepsWcag: string;
+  routeInteractiveMap: string;
 
   // Filary projektu
   pillarsPill: string;
@@ -369,7 +379,17 @@ export const translations: Record<Language, TranslationDictionary> = {
     routeRecommendedBadge: 'Rekomendowana (92%)',
     routeAttentionBadge: 'Wymaga uwagi (75%)',
     routePlannerTitle: 'Planer Dostępnych Tras Pieszych w Krakowie',
-    routePlannerDesc: 'Wybierz trasę, aby sprawdzić analizę nawierzchni, krawężników, schodów oraz profilu nachylenia terenu.',
+    routePlannerDesc: 'Wybierz trasę wzorcową lub wyznacz własną trasę bez barier pomiędzy dowolnymi miejscami w bazie Krakowa.',
+    routeModeCustom: 'Wyznacz własną trasę',
+    routeModeDemo: 'Trasy wzorcowe (rekomendowane)',
+    routeStartPoint: 'Punkt początkowy (Skąd):',
+    routeDestPoint: 'Punkt docelowy (Dokąd):',
+    routeSelectPlaceholder: '-- Wybierz obiekt z bazy --',
+    routeCalculateBtn: 'Wyznacz trasę bez barier',
+    routeSwapBtn: 'Odwróć kierunek trasy',
+    routeSurfaceBreakdown: 'Struktura nawierzchni na trasie:',
+    routeStepsWcag: 'Etapy trasy krok po kroku (WCAG):',
+    routeInteractiveMap: 'Interaktywna mapa nawierzchni trasy',
 
     // Filary projektu
     pillarsPill: 'Innowacja i Rzetelność',
@@ -594,7 +614,17 @@ export const translations: Record<Language, TranslationDictionary> = {
     routeRecommendedBadge: 'Recommended (92%)',
     routeAttentionBadge: 'Requires attention (75%)',
     routePlannerTitle: 'Krakow Barrier-Free Walking Route Planner',
-    routePlannerDesc: 'Select a route to view analysis of surface types, curbs, stairs, and incline slope profiles.',
+    routePlannerDesc: 'Select a standard route or plan your own barrier-free route between any places in Krakow.',
+    routeModeCustom: 'Custom Route Planner',
+    routeModeDemo: 'Recommended Landmark Routes',
+    routeStartPoint: 'Starting Point (From):',
+    routeDestPoint: 'Destination Point (To):',
+    routeSelectPlaceholder: '-- Select place from database --',
+    routeCalculateBtn: 'Calculate Accessible Route',
+    routeSwapBtn: 'Reverse Route Direction',
+    routeSurfaceBreakdown: 'Surface Composition on Route:',
+    routeStepsWcag: 'Step-by-step route directions (WCAG):',
+    routeInteractiveMap: 'Interactive route surface map',
 
     // Pillars
     pillarsPill: 'Innovation & Reliability',
