@@ -54,7 +54,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Zmienne środowiskowe z sekretami
+# Zmienne środowiskowe z sekretami i klucze chmury
 .env
 .env.local
 .env.development.local
@@ -62,6 +62,11 @@ lerna-debug.log*
 .env.production.local
 *.env
 !*.env.example
+*service_account*.json
+*serviceAccount*.json
+*credentials*.json
+serviceAccountKey.json
+gcp-key.json
 
 # --- Edytory i IDE ---
 .vscode/*
