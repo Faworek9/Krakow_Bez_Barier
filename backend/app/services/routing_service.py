@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field
 from fastapi import HTTPException
 from app.models.poi import UserPreferences, SurfaceType, POI
 from app.services.krakow_data_service import repo
+from app.services.street_snapper import snap_legs
 
 class RouteSegment(BaseModel):
     step_number: int
@@ -895,6 +896,38 @@ class RoutingService:
                     heapq.heappush(pq, (new_cost, v, new_path))
         return []
 
+    @staticmethod
+    def _snap_segments(segments: List[RouteSegment]) -> List[RouteSegment]:
+        """
+        Zastępuje proste linie między węzłami grafu geometrią biegnącą po rzeczywistych
+        ulicach i chodnikach (OSRM / OpenStreetMap). Atrybuty dostępności segmentu
+        (nawierzchnia, krawężniki, nachylenie) pozostają bez zmian.
+        """
+        legs = [
+            (s.path[0], s.path[-1]) if len(s.path) >= 2 else None
+            for s in segments
+        ]
+        to_snap = [leg for leg in legs if leg is not None]
+        snapped_iter = iter(snap_legs(to_snap))
+
+        prev_end: Optional[List[float]] = None
+        for seg, leg in zip(segments, legs):
+            snapped = next(snapped_iter) if leg is not None else None
+            if snapped is not None:
+                new_path, new_dist = snapped
+                # odrzucamy wyniki skrajnie różne od oczekiwanych (błędne dopasowanie)
+                ref = max(1, seg.distance_meters)
+                if 0.5 <= new_dist / ref <= 2.5 or ref <= 30:
+                    # ciągłość linii: początek = koniec poprzedniego odcinka
+                    if prev_end is not None and new_path[0] != prev_end:
+                        new_path = [prev_end] + new_path
+                    seg.path = new_path
+                    seg.distance_meters = new_dist
+                    seg.lat, seg.lng = new_path[0][0], new_path[0][1]
+            if seg.path:
+                prev_end = seg.path[-1]
+        return segments
+
     def get_available_routes(self) -> List[Dict[str, Any]]:
         return [
             {"route_id": k, "title": v["title"], "distance_meters": v["total_distance_meters"]}
@@ -942,11 +975,16 @@ class RoutingService:
             status = "not_recommended"
             status_label_pl = "Nierozpoznana lub odradzana ze względu na bariery"
 
+        demo_segments = self._snap_segments([RouteSegment(**s) for s in data["segments"]])
+        snapped_total = sum(s.distance_meters for s in demo_segments)
+        total_distance = snapped_total if snapped_total > 0 else data["total_distance_meters"]
+        est_time = max(1, int(round(total_distance / 65.0)))
+
         return RouteResponse(
             route_id=data["route_id"],
             title=data["title"],
-            total_distance_meters=data["total_distance_meters"],
-            estimated_time_minutes=data["estimated_time_minutes"],
+            total_distance_meters=total_distance,
+            estimated_time_minutes=est_time,
             surface_summary=data["surface_summary"],
             max_curb_cm=data["max_curb_cm"],
             total_stairs_count=data["total_stairs_count"],
@@ -954,7 +992,7 @@ class RoutingService:
             accessibility_score=score,
             accessibility_status=status,
             status_label_pl=status_label_pl,
-            segments=[RouteSegment(**s) for s in data["segments"]],
+            segments=demo_segments,
             barriers_detected=barriers,
             advantages_detected=advantages
         )
@@ -1132,6 +1170,20 @@ class RoutingService:
                     path=[[start_poi.location.lat, start_poi.location.lng], [dest_poi.location.lat, dest_poi.location.lng]]
                 )
             )
+
+        # Dopasowanie geometrii do rzeczywistych ulic i chodników
+        segments = self._snap_segments(segments)
+
+        # Linia ma zaczynać się dokładnie w obiekcie startowym i kończyć w docelowym
+        s_pt = [start_poi.location.lat, start_poi.location.lng]
+        d_pt = [dest_poi.location.lat, dest_poi.location.lng]
+        if segments:
+            first, last = segments[0], segments[-1]
+            if first.path and haversine_distance_meters(*first.path[0], *s_pt) > 3:
+                first.path = [s_pt] + first.path
+                first.lat, first.lng = s_pt
+            if last.path and haversine_distance_meters(*last.path[-1], *d_pt) > 3:
+                last.path = last.path + [d_pt]
 
         total_distance = sum(s.distance_meters for s in segments)
         estimated_time = max(1, int(round(total_distance / 65.0)))
