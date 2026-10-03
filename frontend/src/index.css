@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Zapewnienie wyraźnego focusu dla nawigacji klawiaturą (WCAG 2.2 AA) */
+  :focus-visible {
+    outline: 3px solid #0052A5 !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Tryb wysokiego kontrastu */
+  .high-contrast {
+    filter: contrast(135%);
+  }
+
+  .high-contrast :focus-visible {
+    outline: 4px solid #FFFF00 !important;
+    outline-offset: 3px !important;
+  }
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.75rem;
+  z-index: 10;
+}
+
+/* Dostosowanie popupów mapy */
+.leaflet-popup-content-wrapper {
+  border-radius: 0.75rem;
+  padding: 4px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
