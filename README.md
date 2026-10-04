@@ -93,18 +93,6 @@ cd backend
 ```powershell
 cd frontend
 & "C:\Program Files\nodejs\npm.cmd" run dev
-```
-
-
----
-
-## 📁 Dokumentacja Konkursowa i Koncepcja Projektu
-
-- [📖 **`IDEA_I_KONCEPCJA_PROJEKTU.md`**](IDEA_I_KONCEPCJA_PROJEKTU.md) – **Główny manifest i koncepcja**: idea przewodnia, parametryzacja zamiast etykiet, grupy docelowe, model docelowy, piramida wiarygodności danych, system ról i dwujęzyczność międzynarodowa.
-- [`docs/PREZENTACJA_10_SLAJDOW.md`](docs/PREZENTACJA_10_SLAJDOW.md) – Kompletna treść prezentacji konkursowej (dokładnie 10 slajdów zgodnie z regulaminem).
-- [`docs/SCENARIUSZ_WIDEO_3MIN.md`](docs/SCENARIUSZ_WIDEO_3MIN.md) – Precyzyjny scenariusz nagrania wideo demonstracyjnego (poniżej 3 minut).
-- [`docs/MODEL_BIZNESOWY_I_SKALOWANIE.md`](docs/MODEL_BIZNESOWY_I_SKALOWANIE.md) – Model przychodowy B2B/B2G, RODO, koszty utrzymania na GCP, moduł lokali biznesowych i procedura skalowania na kolejne miasta.
-
 ---
 
 ## 📄 Licencje i Źródła
